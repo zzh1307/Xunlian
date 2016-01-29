@@ -5,7 +5,7 @@
     android:background="#a0000000"
     android:orientation="vertical" >
 
-    <!-- 这里的linearLayout加android:background=""这个属性要谨慎，如果加了后，popwindow是不能半透明了的 -->
+    <!-- 这   里的linearLayout加android:background=""这个属性要谨慎，如果加了后，popwindow是不能半透明了的 -->
 <TextView
     android:id="@+id/id_dismiss"
     android:layout_width="match_parent"

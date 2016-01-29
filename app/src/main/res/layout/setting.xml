@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f0f0f0" >
+	<TextView
+		android:background="#66b2ff"
+		android:layout_width="fill_parent"
+		android:layout_height="90dp"
+		android:text="讯连"
+		android:gravity="center"
+
+		android:textColor="#ffffff"
+		android:textSize="30dp"
+		/>
+    <LinearLayout
+        android:layout_width="match_parent"
+   	    android:layout_height="100dp"
+   	    android:orientation="horizontal"
+   	    android:background="#ffffff"
+        >
+        <ImageView
+            android:id="@+id/Setting_HeadIMG"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+	        android:layout_width="70dp"
+	        android:layout_height="50dp"
+	        android:scaleType="fitXY"
+	        android:src="@drawable/demo" />
+	        
+        
+        <LinearLayout
+            android:paddingLeft="15dp"
+        	android:layout_width="wrap_content"
+   	   	 	android:layout_height="wrap_content"
+			android:layout_weight="1"
+   	    	android:orientation="vertical"
+   	    	android:layout_gravity="center_vertical"
+        >
+       
+        <TextView
+			android:padding="5dp"
+	        android:id="@+id/ItemName"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_vertical"
+	        android:text="讯连"
+	        android:textSize="20dp" />
+
+    <TextView
+		android:padding="5dp"
+	        android:id="@+id/ItemPhone"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:text="讯连"
+	        android:textColor="#A6A6A6"
+	        android:gravity="center_vertical"
+	        android:textSize="15dp" />
+        
+    </LinearLayout>
+		<ImageView
+			android:id="@+id/QR_share"
+			android:layout_gravity="center_vertical"
+			android:layout_marginRight="10dp"
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:scaleType="fitXY"
+			android:src="@drawable/qr_share" />
+        
+    </LinearLayout>
+
+<TextView
+			android:textColor="#4D4D4D"
+	        android:layout_marginTop="20dp"
+	        android:id="@+id/Setting_SafeItem"
+	        android:layout_width="fill_parent"
+	        android:layout_height="60dp"
+	        android:gravity="center"
+	        android:text="图案解锁"
+			android:background="#ffffff"
+	        android:layout_gravity="center_vertical"
+	        android:textSize="15dp" />
+<TextView
+	android:textColor="#4d4d4d"
+	android:layout_marginTop="20dp"
+	        android:id="@+id/Setting_Clean"
+			android:layout_width="fill_parent"
+			android:layout_height="60dp"
+	        android:gravity="center"
+	        android:text="备份数据"
+	android:background="#ffffff"
+	        android:layout_gravity="center_vertical"
+	        android:textSize="15dp" />
+		<TextView
+			android:layout_marginTop="20dp"
+			android:id="@+id/Setting_DropOut"
+			android:layout_width="fill_parent"
+			android:layout_height="60dp"
+			android:gravity="center"
+			android:background="#ffffff"
+			android:textColor="#cd2626"
+			android:text="退出账号"
+			android:textSize="15dp" />
+</LinearLayout>

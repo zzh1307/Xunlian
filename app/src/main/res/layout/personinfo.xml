@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:background="#66b2ff"
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:text="详细信息"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:visibility="visible"
+                android:background="#f0f0f0">
+
+        <ImageView
+            android:id="@+id/addresult_img_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/head"
+            android:padding="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="3"
+                    android:layout_gravity="center"
+                    android:orientation="vertical" >
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="fill_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text="账号:"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="15dp" />
+                        <TextView
+                            android:id="@+id/account_number"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text=""
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="fill_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text="姓名:"
+                            android:layout_marginLeft="15dp" />
+                        <TextView
+                            android:id="@+id/newinfo_edt_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="10dp"
+                            android:singleLine="true"
+                            android:maxLength="10"
+                            android:textSize="15dp"
+                            android:gravity="center_vertical"
+                            />
+                    </LinearLayout>
+            </LinearLayout>
+
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:visibility="visible">
+            <ImageView
+                android:id="@+id/addresult_img_phone"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/dianhua"
+                android:padding="5dp"
+                />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#7a7a7a"
+                android:text="请查看手机号"
+                />
+</LinearLayout>
+
+
+    <TextView
+        android:id="@+id/addresult_txt_StrPhone1"
+        android:layout_width="200dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="40dp"
+        android:text="手机1"
+        android:visibility="visible"
+        />
+
+
+    <TextView
+        android:id="@+id/addresult_txt_StrPhone2"
+        android:layout_width="200dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="40dp"
+        android:text="手机2"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/addresult_txt_StrPhone3"
+        android:layout_width="200dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="40dp"
+        android:text="手机3"
+        android:visibility="visible"/>
+
+ <LinearLayout
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="10dp"
+     android:orientation="horizontal"
+     android:layout_gravity="center"
+     android:visibility="visible">
+     <ImageView
+         android:id="@+id/addresult_img_email"
+         android:layout_width="60dp"
+         android:layout_height="60dp"
+         android:src="@drawable/youxiang"
+         android:padding="5dp"
+         />
+     <TextView
+         android:id="@+id/addresult_emailT"
+         android:layout_marginLeft="10dp"
+         android:layout_gravity="center_vertical"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:textSize="20dp"
+         android:textColor="#7a7a7a"
+         android:text="请查看邮箱号"
+         />
+     </LinearLayout>
+
+    <TextView
+        android:id="@+id/addresult_txt_StrEmail1"
+        android:text="邮箱1"
+        android:layout_width="200dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="40dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/addresult_txt_StrEmail2"
+        android:hint="邮箱2"
+        android:layout_width="200dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="40dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/addresult_txt_StrEmail3"
+        android:hint="邮箱3"
+        android:layout_width="200dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_height="40dp"
+        android:visibility="visible" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+
+            android:visibility="visible">
+            <ImageView
+                android:id="@+id/addresult_img_QQ"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/qq"
+                android:padding="5dp"
+                />
+            <TextView
+                android:id="@+id/addresult_qqT"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="#7a7a7a"
+                android:text="请查看 Q Q 号"
+                />
+
+        </LinearLayout>
+                <TextView
+                    android:id="@+id/addresult_txt_Strqq"
+                    android:text="QQ"
+                    android:layout_width="200dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_height="40dp"
+                    android:visibility="visible"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:visibility="visible">
+                <ImageView
+                    android:id="@+id/addresult_img_weibo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/weibo"
+                    android:padding="5dp"
+                    />
+                <TextView
+                    android:id="@+id/addresult_weiboT"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="#7a7a7a"
+                    android:text="请输入微博号"
+                    />
+            </LinearLayout>
+                    <TextView
+                        android:id="@+id/addresult_txt_Strweibo1"
+                        android:text="微博"
+                        android:layout_width="200dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_height="40dp"
+                        android:visibility="visible" />
+
+
+
+
+
+            <Button
+                android:id="@+id/addresult_btn_Add"
+                android:background="#3399ff"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="250dp"
+                android:text="添加"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

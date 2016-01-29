@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#ffffff">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/item_bg"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+
+
+    <ImageView
+        android:id="@+id/ItemImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/demo"
+        android:layout_gravity="center_vertical"
+        android:padding="5dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/ItemName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="讯连"
+            android:layout_gravity="center_vertical"
+            android:textSize="20dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/ItemPhone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="讯连"
+            android:textSize="15dp"
+            android:paddingTop="10dp" />
+    </LinearLayout>
+        <ImageButton
+            android:id="@+id/ItemMore"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/more"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:background="#4a4949"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center"
+        android:id="@+id/Item_Set"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/ItemTel"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/tel"
+            android:scaleType="fitXY"
+            />
+        <ImageButton
+            android:id="@+id/ItemMes"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/mes"
+            android:scaleType="fitXY"
+            />
+        <ImageButton
+            android:id="@+id/ItemDelete"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/delete"
+            android:scaleType="fitXY"
+            />
+
+    </LinearLayout>
+</LinearLayout>

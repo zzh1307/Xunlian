@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:weightSum="5"
+    >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04"
+        android:background="#66b2ff"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/addPreson_phonebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#66b2ff"
+            android:layout_weight="1"
+            android:text="手动" />
+
+        <Button
+            android:id="@+id/addPreson_photobtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#66b2ff"
+            android:layout_weight="1"
+            android:text="扫码" />
+        
+        
+
+
+    </LinearLayout>
+ <FrameLayout
+        android:id="@+id/addPreson_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5" />
+
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        />
+
+</LinearLayout>

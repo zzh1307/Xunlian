@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.zhaozihao.xunlian"
+        minSdkVersion 17
+        targetSdkVersion 23
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile files('libs/zxing.jar')
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:appcompat-v7:19.1.0'
+    compile files('libs/umeng-update-v2.6.0.1.jar')
+    compile files('libs/umeng-analytics-v5.6.1.jar')
+    compile files('libs/com.umeng.message.lib_v2.5.0.jar')
+    compile project(':explosionfield')
+    //compile project(':openimSDK')
+}

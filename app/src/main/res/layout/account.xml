@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/Account_Title"
+        android:background="#66b2ff"
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:text="讯连登陆"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+        <LinearLayout
+            android:id="@+id/Account_Login"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
+            <Button
+                android:id="@+id/Account_Login_But"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:text="登录"
+                android:textSize="20dp"
+                android:textColor="#6B6B6B" />
+            <TextView
+                android:id="@+id/Account_Login_Text"
+                android:layout_gravity="center"
+                android:layout_width="70dp"
+                android:background="#6495ED"
+                android:layout_height="5dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/Account_Regs"
+            android:background="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
+        <Button
+            android:id="@+id/Account_Regs_But"
+            android:background="#ffffff"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="注册"
+            android:textSize="20dp"
+            android:textColor="#6B6B6B" />
+            <TextView
+                android:id="@+id/Account_Regs_Text"
+                android:layout_gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:id="@+id/Account_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>

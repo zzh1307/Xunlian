@@ -22,18 +22,14 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.proguard.T;
-import com.zhaozihao.xunlian.BuildConfig;
 import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.XunLian.Tools.AppManger;
 import com.zhaozihao.xunlian.XunLian.Tools.MyToast;
 import com.zhaozihao.xunlian.XunLian.Tools.Tools;
-import com.zhaozihao.xunlian.XunLian.UI.MiBaoDialog;
 import com.zhaozihao.xunlian.XunLian.UI.TianJiaDialog;
 
 import org.json.JSONException;
@@ -65,7 +61,7 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 	EditText weibo1 = null;
 	String[] update;
 	String[] oldinfo;
-
+	String[] oldinfo1;
 	Tools tools = new Tools(Xunlian_NewInfo.this);
 	Bitmap headbit = null;
 	private String[] items = new String[] { "打开图库", "使用相机" };
@@ -106,43 +102,45 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 			setTextVisible();
 			push.setText("更新");
 			Title.setText("更新个人信息");
-			String[] oldinfo1 = getSelfInfo();
-
 			String infostr = intent.getStringExtra("info");
 			oldinfo = infostr.split("#");
-			String selfInfoStr = null;
-			for (int i = 0;i<oldinfo1.length;i++){
-
+			oldinfo1 = getSelfInfo();
+			String selfInfoStr = "";
+			for(int i = 0;i<oldinfo1.length;i++){
 				selfInfoStr += oldinfo1[i]+"#";
-
 			}
+			Log.e("Xunlian_NewInfo", infostr);
 			Log.e("Xunlian_NewInfo", selfInfoStr);
-			if(selfInfoStr.equals("无#无#无#无#无#无#无#无#无#")){
+			if(selfInfoStr.equals("无#无#无#无#无#无#无#无#无#无#")){
 				setPersonInfo(oldinfo);
 			}else{
 				setPersonInfo(oldinfo1);
 				oldinfo = oldinfo1;
 			}
-			push.setOnClickListener(null);
 			push.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View view) {
 					int type;
 					getEditString();
-					for (int i = 1;i<oldinfo.length;i++){
-						if(!oldinfo[i].equals(newinfo[i])){
-							type = (int)Math.pow(2,i-1);
-							data = data+type+"#"+newinfo[i]+"#!";
+					for (int i = 1; i < newinfo.length; i++) {
+						if (!oldinfo[i].equals(newinfo[i])) {
+							type = (int) Math.pow(2, i - 1);
+							data = data + type + "#" + newinfo[i] + "#!";
 						}
+						Log.e("data",data);
 					}
-					if(!newinfo[0].equals(oldinfo[0])){
-						data = "1#"+tools.encryption(account)+"#!"+data;
+
+					if (!newinfo[0].equals(oldinfo[0])&&data.equals("")) {
+						update = new String[]{"no"};
+					}else{
+						update = data.split("!");
 					}
-					update = data.split("!");
-					if(!data.equals("")){
+
+					if (!data.equals("")||update[0].equals("no")) {
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
+
 								String strname;
 								strname = tools.decryption(newinfo[0]);
 								String result = tools.sendString2ServersSocket(tools.Key2Json("6", peraccount.getText().toString(), strname, "1", update));
@@ -152,7 +150,7 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 								} catch (JSONException e) {
 									e.printStackTrace();
 								}
-								if(strarry[0].equals("success")){
+								if (strarry[0].equals("success")) {
 									Message msg = new Message();
 									msg.what = 0;
 									msg.obj = "更新成功";
@@ -169,7 +167,7 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 
 							}
 						}).start();
-					}else{
+					} else {
 						Message msg = new Message();
 						msg.what = 0;
 						msg.obj = "您还没有更新什么内容哦,更新后再来点击我吧";
@@ -188,7 +186,7 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 						@Override
 						public void back(String strinfo) {
 							// TODO: 2016/1/20 0020 将添加密码设置添加到完善信息里面
-							if(strinfo.equals("success")){
+							if (strinfo.equals("success")) {
 								new Thread(new Runnable() {
 									@Override
 									public void run() {
@@ -242,15 +240,15 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 										}
 									}
 								}).start();
-							}else if(info.equals("outTime")){
+							} else if (info.equals("outTime")) {
 								Message msg1 = new Message();
 								msg1.what = 2;
 								msg1.obj = "网络连接超时,请重新设置";
 								handler.sendMessage(msg1);
-							}else{
+							} else {
 								Message msg1 = new Message();
 								msg1.what = 2;
-								msg1.obj ="发生不可预知的错误";
+								msg1.obj = "发生不可预知的错误";
 								handler.sendMessage(msg1);
 							}
 
@@ -288,10 +286,11 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 		email3.setText(tools.decryption(info[6]));
 		qq.setText(tools.decryption(info[7]));
 		weibo1.setText(tools.decryption(info[8]));
+		peraccount.setText(tools.decryption(info[9]));
 	}
 	public String[] getSelfInfo() {
-		sp = getSharedPreferences( account + "info", Context.MODE_PRIVATE );
-		String[] selfinfo = new String[9];
+		sp = getSharedPreferences( account + "info", Context.MODE_PRIVATE);
+		String[] selfinfo = new String[10];
 		selfinfo[0] = sp.getString("name","无");
 		selfinfo[1] = sp.getString("phone1","无");
 		selfinfo[2] = sp.getString("phone2","无");
@@ -301,6 +300,7 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 		selfinfo[6] = sp.getString("email3","无");
 		selfinfo[7] = sp.getString("qq","无");
 		selfinfo[8] = sp.getString("weibo","无");
+		selfinfo[9] = sp.getString("account","无");
 		return selfinfo;
 	}
 	private void init(String account_number) {
@@ -321,7 +321,6 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 		phone1 = (EditText) findViewById(R.id.newinfo_edt_StrPhone1);
 		Title = (TextView) findViewById(R.id._title);
 		peraccount = (TextView) findViewById(R.id.account_number);
-		peraccount.setText(account_number);
 		phone2 = (EditText) findViewById(R.id.newinfo_edt_StrPhone2);
 		phone3 = (EditText) findViewById(R.id.newinfo_edt_StrPhone3);
 		email1 = (EditText) findViewById(R.id.newinfo_edt_StrEmail1);
@@ -552,7 +551,7 @@ public String[] getEditString(){
 
 	info[10] = qq.getText().toString();
 	info[11] = weibo1.getText().toString();
-	newinfo = new String[]{tools.encryption(info[2]),tools.encryption(info[7]),tools.encryption(info[8]),tools.encryption(info[9]),tools.encryption(info[4]),tools.encryption(info[5]),tools.encryption(info[6]),tools.encryption(info[10]),tools.encryption(info[11])};
+	newinfo = new String[]{tools.encryption(info[2]),tools.encryption(info[7]),tools.encryption(info[8]),tools.encryption(info[9]),tools.encryption(info[4]),tools.encryption(info[5]),tools.encryption(info[6]),tools.encryption(info[10]),tools.encryption(info[11]),tools.encryption(info[0])};
 
 	return info;
 }

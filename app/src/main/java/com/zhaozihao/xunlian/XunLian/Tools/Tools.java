@@ -191,17 +191,18 @@ public class Tools {
             info.put("head", value3);
             object.put("info",info);
             JSONArray array = new JSONArray();
+            if(!update[0].equals("no")){
 
-            Log.e("aaaaaa", update.length + "");
+                for (int i = 0;i<update.length;i++){
+                    Log.e("aaaaaa", update[i] );
+                    String[] info1 =  update[i].split("#");
+                    JSONObject jsoninfo = new JSONObject();
+                    jsoninfo.put("type",info1[0]);
+                    jsoninfo.put("content", decryption(info1[1]));
+                    Log.e("aaaaaa", jsoninfo.toString() + "----------" + i);
+                    array.put(i,jsoninfo);
 
-            for (int i = 0;i<update.length;i++){
-                Log.e("aaaaaa", update[i] );
-                String[] info1 =  update[i].split("#");
-                JSONObject jsoninfo = new JSONObject();
-                jsoninfo.put("type",info1[0]);
-                jsoninfo.put("content", decryption(info1[1]));
-                Log.e("aaaaaa", jsoninfo.toString() + "----------" + i);
-                array.put(i,jsoninfo);
+            }
             }
             object.put("update",array);
             jsonresult = object.toString();

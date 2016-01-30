@@ -9,6 +9,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:gravity="center"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
         android:layout_gravity="center"
         android:inputType="textEmailAddress"
         android:hint="请输入帐号."

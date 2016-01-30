@@ -129,7 +129,7 @@ public class AppPersonListAdapter extends BaseAdapter {
 
             holder.image = (ImageView) convertView.findViewById(R.id.ItemImage);  
 
-            holder.phone = (TextView) convertView.findViewById(R.id.ItemPhone);
+            holder.account = (TextView) convertView.findViewById(R.id.ItemPhone);
 
             holder.name = (TextView) convertView.findViewById(R.id.ItemName);
 
@@ -158,11 +158,11 @@ public class AppPersonListAdapter extends BaseAdapter {
 
         final View view1 = convertView;
 
-        holder1.phone.setText(getItem(position).getPhone1());
+        holder1.account.setText(getItem(position).getAccount());
 
         holder1.name.setText(getItem(position).getName());
 
-        holder1.phone.setOnClickListener(new View.OnClickListener() {
+        holder1.account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -200,7 +200,7 @@ public class AppPersonListAdapter extends BaseAdapter {
                 if (BuildConfig.DEBUG)
                     Log.d("AppPersonListAdapter", "po:" + getItem(p).getPhone1());
 
-                showPopwindow(getItem(p).getPhone1(), view1, p);
+                showPopwindow(getItem(p).getAccount(), view1, p);
             }
 
         });
@@ -257,8 +257,7 @@ public class AppPersonListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 finalWindow.dismiss();
-
-                if(phone[0].equals("")&&phone[1].equals("")&&phone[2].equals("")){
+                if(phone.length==0){
                     noDialog();
                 }else{
                     singleDialog(phone,1);
@@ -280,7 +279,7 @@ public class AppPersonListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 finalWindow.dismiss();
 
-                if(phone[0].equals("")&&phone[1].equals("")&&phone[2].equals("")){
+                if(phone.length==0){
                     noDialog();
                 }else{
                     singleDialog(phone,2);
@@ -414,7 +413,7 @@ public class AppPersonListAdapter extends BaseAdapter {
 
         ImageView more;
 
-        TextView phone;
+        TextView account;
 
         TextView name;
 

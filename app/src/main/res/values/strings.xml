@@ -3,6 +3,9 @@
     <string name="app_name">讯连</string>
     <string name="app_key">23290990</string>
     <string name="umeng_appkey">56406c4f67e58e945b000daa</string>
+    <string name="title_activity_xunlian__forget_password">Xunlian_ForgetPassword</string>
+    <string name="title_activity_xunlian__account_safe">Xunlian_AccountSafe</string>
+    <string name="title_activity_xunlian__forget_mibao">Xunlian_ForgetMibao</string>
 
 
 </resources>

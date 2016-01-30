@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zhaozihao.xunlian.XunLian.Activity.Xunlian_ForgetPassword">
+
+    <TextView
+        android:background="#66b2ff"
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:text="更改密保"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_margin="10dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/mibao_edt_account"
+            android:gravity="center"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
+            android:layout_gravity="center"
+            android:hint="请输入账号"
+            android:inputType="text"
+            />
+        <EditText
+            android:id="@+id/mibao_edt_password"
+            android:layout_width="300dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:inputType="textPassword"
+            android:hint="请输入密码"
+            />
+        <Button
+            android:id="@+id/mibao_btn_next"
+            android:layout_marginTop="20dp"
+            android:text="下一步"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/mibao_ll_mibao"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+
+        <EditText
+            android:layout_margin="10dp"
+            android:layout_width="300dp"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/mibao_wenti"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:hint="请输入密保问题"
+            android:inputType="text"
+            />
+        <EditText
+            android:layout_margin="10dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/mibao_daan"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:hint="请输入密保答案"
+            android:inputType="text"
+            />
+        <Button
+            android:id="@+id/mibao_btn_setmibao"
+            android:layout_marginTop="20dp"
+            android:text="设置"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button"/>
+    </LinearLayout>
+
+
+</LinearLayout>

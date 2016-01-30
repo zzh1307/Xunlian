@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 
 import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_Account;
+import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_AccountSafe;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_LockActivity;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_NewInfo;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_PatternUnlockSetting;
@@ -35,6 +35,7 @@ public class Frangment_Setting extends Fragment implements OnClickListener{
 	TextView Setting_Clean = null;
 	TextView Setting_SafeItem = null;
 	TextView Item_Name = null;
+	TextView Item_Account = null;
 	TextView Item_Phone = null;
 	TextView Setting_DropOut = null;
 	ImageView Setting_HeadPic = null;
@@ -158,6 +159,7 @@ public class Frangment_Setting extends Fragment implements OnClickListener{
 
 	private void init(View view) {
 		account = getAccount();
+		Item_Account = (TextView) view.findViewById(R.id.Setting_AccountItem);
 		QR_share = (ImageView) view.findViewById(R.id.QR_share);
 		Setting_Clean = (TextView) view.findViewById(R.id.Setting_Clean);
 		Setting_SafeItem = (TextView) view.findViewById(R.id.Setting_SafeItem);
@@ -170,6 +172,7 @@ public class Frangment_Setting extends Fragment implements OnClickListener{
 		Setting_SafeItem.setOnClickListener(this);
 		Setting_DropOut.setOnClickListener(this);
 		Setting_HeadPic.setOnClickListener(this);
+		Item_Account.setOnClickListener(this);
 	}
 
 	@Override
@@ -180,7 +183,7 @@ public class Frangment_Setting extends Fragment implements OnClickListener{
 
 	private void set() {
 		Item_Name.setText(tools.decryption(info[0]));
-		Item_Phone.setText(tools.decryption(info[9]));
+		Item_Phone.setText("讯连账号:"+tools.decryption(info[9]));
 		Item_Name.setOnClickListener(this);
 		Item_Phone.setOnClickListener(this);
 	}
@@ -277,6 +280,9 @@ public class Frangment_Setting extends Fragment implements OnClickListener{
 						.show();
 
 
+				break;
+			case R.id.Setting_AccountItem:
+				startActivity(new Intent(getActivity(), Xunlian_AccountSafe.class ));
 				break;
 			default:
 				intent1.setClass(getActivity(), Xunlian_NewInfo.class);

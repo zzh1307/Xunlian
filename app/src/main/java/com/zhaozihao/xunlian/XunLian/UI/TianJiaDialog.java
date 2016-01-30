@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.XunLian.Tools.Tools;
@@ -32,6 +33,7 @@ public class TianJiaDialog extends Dialog {
     int type;
     EditText daan;
     EditText wenti;
+    TextView tianjiainfo = null;
     String Strdaan;
     Context context;
     String Strwenti;
@@ -59,7 +61,6 @@ type 2  就是验证添加密码
         tools = new Tools(context);
         this.friendaccount = friendaccount;
         this.customDialogListener = customDialogListener;
-
     }
 
     @Override
@@ -72,6 +73,7 @@ type 2  就是验证添加密码
     }
 
     private void initView(int type) {
+        tianjiainfo  = (TextView) findViewById(R.id.tianjia_info);
         btn = (Button) findViewById(R.id.tianjia_btn);
         daan = (EditText) findViewById(R.id.tianjia_edt_daan);
         wenti = (EditText) findViewById(R.id.tianjia_edt_wenti);
@@ -79,6 +81,7 @@ type 2  就是验证添加密码
         if (type == 1){
             setTitle("设置添加问题和密码");
         }else{
+            tianjiainfo.setText("您可以向您的好友索取添加密码");
             setTitle("验证添加密码");
             wenti.setEnabled(false);
             wenti.setText(question);

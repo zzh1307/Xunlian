@@ -27,10 +27,13 @@ import com.umeng.message.PushAgent;
 import com.umeng.message.UmengRegistrar;
 import com.umeng.update.UmengUpdateAgent;
 import com.zhaozihao.xunlian.R;
+import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_ForgetPassword;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_MainActivity;
 import com.zhaozihao.xunlian.XunLian.Tools.AppManger;
 import com.zhaozihao.xunlian.XunLian.Tools.MyToast;
 import com.zhaozihao.xunlian.XunLian.Tools.Tools;
+
+import static com.zhaozihao.xunlian.R.id.Login_BTN_Forget;
 
 
 public class Frangment_Login extends Fragment implements View.OnClickListener{
@@ -58,7 +61,7 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
         public void handleMessage(Message msg) {
             if(msg.what==1){
                 // TODO Auto-generated method stub
-                pd = tools.creatDialog(getActivity(),"正在登陆","我在努力的加载中....");
+                pd = tools.creatDialog(getActivity(),msg.obj.toString(),"我在努力的加载中....");
                 pd.show();
             }else if(msg.what==2){
 
@@ -93,7 +96,7 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
         myToast = new MyToast();
         Login = (Button) view.findViewById(R.id.Login_BTN_Login);
         show = (TextView) view.findViewById(R.id.show);
-        Forget = (Button) view.findViewById(R.id.Login_BTN_Forget);
+        Forget = (Button) view.findViewById(Login_BTN_Forget);
         Login.setOnClickListener(this);
         Forget.setOnClickListener(this);
         Password = (EditText) view.findViewById(R.id.Login_EDT_Password);
@@ -200,6 +203,7 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
                             try {
                                 Message msg = Message.obtain();
                                 msg.what = 1;
+                                msg.obj = "正在登录";
                                 handler.sendMessage(msg);
                                 Log.e("isMD5", isMD5 + "");
                                 Log.e("原密码",password);
@@ -250,8 +254,8 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
                     }).start();
                 }
                 break;
-            case R.id.Login_BTN_Forget:
-             //// TODO: 2016/1/7 0007 将忘记密码加进去
+            case Login_BTN_Forget:
+               startActivity(new Intent(getActivity(), Xunlian_ForgetPassword.class));
             break;
         }
     }

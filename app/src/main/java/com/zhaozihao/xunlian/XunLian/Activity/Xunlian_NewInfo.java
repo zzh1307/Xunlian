@@ -321,6 +321,7 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 		phone1 = (EditText) findViewById(R.id.newinfo_edt_StrPhone1);
 		Title = (TextView) findViewById(R.id._title);
 		peraccount = (TextView) findViewById(R.id.account_number);
+		peraccount.setText(account_number);
 		phone2 = (EditText) findViewById(R.id.newinfo_edt_StrPhone2);
 		phone3 = (EditText) findViewById(R.id.newinfo_edt_StrPhone3);
 		email1 = (EditText) findViewById(R.id.newinfo_edt_StrEmail1);

@@ -13,10 +13,10 @@
         android:visibility="visible">
 
         <EditText
-            android:textColorHint="#ff0000"
             android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:id="@+id/Reg_EDT_Account"
-            android:layout_height="40dp"
             android:singleLine="true"
             android:inputType="text"
             android:layout_width="300dp"
@@ -48,10 +48,11 @@
         android:id="@+id/ll"
         android:visibility="gone">
 
-        <EditText 
+        <EditText
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
         android:layout_marginTop="8dp"
         android:id="@+id/Reg_EDT_Password1"
-        android:layout_height="40dp"
         android:singleLine="true"
         android:layout_width="300dp"
         android:gravity="center"
@@ -62,9 +63,10 @@
         />
 
     <EditText
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
         android:layout_marginTop="8dp"
         android:id="@+id/Reg_EDT_Password2"
-        android:layout_height="40dp"
         android:singleLine="true"
         android:maxLength="16"
         android:layout_width="300dp"

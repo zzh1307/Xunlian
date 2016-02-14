@@ -92,12 +92,19 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
         Log.e("device_token", device_token);
         return   view;
     }
+    public String getAccount() {
+        SharedPreferences sp = null;
+        sp = getActivity().getSharedPreferences("Account", Context.MODE_PRIVATE);
+        String str = sp.getString("account", "");
+        return  str;
+    }
     private void init(View view) {
         myToast = new MyToast();
         Login = (Button) view.findViewById(R.id.Login_BTN_Login);
         show = (TextView) view.findViewById(R.id.show);
         Forget = (Button) view.findViewById(Login_BTN_Forget);
         Login.setOnClickListener(this);
+
         Forget.setOnClickListener(this);
         Password = (EditText) view.findViewById(R.id.Login_EDT_Password);
         Head = (ImageView) view.findViewById(R.id.Login_IMG_Head);
@@ -107,6 +114,13 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
         sp = getActivity().getSharedPreferences("passwordFile", Context.MODE_PRIVATE);
         Account = (AutoCompleteTextView) view.findViewById(R.id.Login_EDT_Account);
         Account.setThreshold(1);
+        if(!getAccount().equals("")||getAccount() != null){
+            Account.setText(getAccount());
+            Password.setText(sp.getString(Account.getText()
+                    .toString(), ""));// 自动输入密码
+            isMD5 = true;
+        }
+
         Password.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
@@ -154,9 +168,9 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
             }
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
                 Password.setText(sp.getString(Account.getText()
                         .toString(), ""));// 自动输入密码
+
             }
         });
 

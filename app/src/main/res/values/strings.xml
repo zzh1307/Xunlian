@@ -6,6 +6,7 @@
     <string name="title_activity_xunlian__forget_password">Xunlian_ForgetPassword</string>
     <string name="title_activity_xunlian__account_safe">Xunlian_AccountSafe</string>
     <string name="title_activity_xunlian__forget_mibao">Xunlian_ForgetMibao</string>
+    <string name="title_activity_cloud">Cloud</string>
 
 
 </resources>

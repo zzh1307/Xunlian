@@ -24,7 +24,7 @@
         android:layout_height="50dp"
         android:layout_weight="0.04"
         android:orientation="horizontal"
-        android:weightSum="4" >
+         >
         <Button
             android:id="@+id/but0"
             android:layout_width="wrap_content"
@@ -32,9 +32,11 @@
             android:layout_weight="1"
             android:background="#66b2ff"
             android:text="聊天"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:visibility="gone" />
         <Button
             android:id="@+id/but1"
+            android:textColor="#ff0000"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"

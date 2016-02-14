@@ -30,10 +30,10 @@
             <Button
                 android:id="@+id/Account_Login_But"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:background="#ffffff"
+                android:background="@null"
                 android:text="登录"
                 android:textSize="20dp"
                 android:textColor="#6B6B6B" />
@@ -54,9 +54,9 @@
             >
         <Button
             android:id="@+id/Account_Regs_But"
-            android:background="#ffffff"
+            android:background="@null"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="注册"

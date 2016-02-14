@@ -42,6 +42,7 @@ public class AppPersonListAdapter extends BaseAdapter {
 	List<Person> list;
     Context context;
     int singleSelectedId;
+
     int po;
     private OnDeleteResult onDeleteResult;
     Tools tools;
@@ -51,6 +52,7 @@ public class AppPersonListAdapter extends BaseAdapter {
     public Handler handler ;
     View Parentview;
     PopupWindow popwindow;
+    CheckListener checkListener;
 
 
 
@@ -61,6 +63,7 @@ public class AppPersonListAdapter extends BaseAdapter {
         tools = new Tools(context);
         this.context = context;
         this.account = account;
+        checkListener = (CheckListener) context;
         this.Parentview = view;
         handler =  new Handler(context.getMainLooper()) {
 
@@ -80,6 +83,10 @@ public class AppPersonListAdapter extends BaseAdapter {
         };
         this.onDeleteResult = onDeleteResult;
   
+    }
+    public interface CheckListener
+    {
+        public void check(Boolean ischeck);
     }
     private void addListener( View root) {
         if (root instanceof ViewGroup) {
@@ -165,6 +172,7 @@ public class AppPersonListAdapter extends BaseAdapter {
         holder1.account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkListener.check(true);
 
                 Log.e("po", p + "");
                 Person person = getItem(p);
@@ -181,6 +189,7 @@ public class AppPersonListAdapter extends BaseAdapter {
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkListener.check(true);
                 Log.e("po",p+"");
                 Person person = getItem(p);
                 String info = person.toString();
@@ -188,7 +197,7 @@ public class AppPersonListAdapter extends BaseAdapter {
                 Intent Intent = new Intent();
                 Intent.setClass(context, Xunlian_PersonInfo.class);
                 Intent.putExtra("type", "look");
-                Intent.putExtra("info", info);
+                Intent.putExtra("info", "@"+info);
                 context.startActivity(Intent);
             }
         });
@@ -196,6 +205,7 @@ public class AppPersonListAdapter extends BaseAdapter {
         holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkListener.check(true);
                 if (BuildConfig.DEBUG) Log.d("AppPersonListAdapter", "po:" + p);
                 if (BuildConfig.DEBUG)
                     Log.d("AppPersonListAdapter", "po:" + getItem(p).getPhone1());

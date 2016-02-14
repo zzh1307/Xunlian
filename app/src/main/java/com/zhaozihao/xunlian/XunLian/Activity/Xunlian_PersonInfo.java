@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,14 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
+import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.XunLian.Tools.AppManger;
 import com.zhaozihao.xunlian.XunLian.Tools.Person;
 import com.zhaozihao.xunlian.XunLian.Tools.Tools;
-import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.dao.PersonDao;
 
 import org.json.JSONException;
 
+import java.util.List;
 
 
 public class Xunlian_PersonInfo extends Activity{
@@ -39,6 +41,7 @@ public class Xunlian_PersonInfo extends Activity{
     TextView email2 = null;
     TextView email3 = null;
     TextView qq = null;
+    String[] array = null,update = null;
     TextView weibo = null;
     ImageView head = null;
     String account = null;
@@ -48,6 +51,7 @@ public class Xunlian_PersonInfo extends Activity{
     String friendaccount = null;
     ProgressDialog pd = null;
     AppManger appManger;
+    String type;
     public Handler handler = new Handler() {
 
         @Override
@@ -91,11 +95,23 @@ public class Xunlian_PersonInfo extends Activity{
         appManger = AppManger.getAppManger();
         appManger.addActivity(Xunlian_PersonInfo.this);
         Intent intent = getIntent();
-        String type = intent.getStringExtra("type");
-        final String[] array;
+        type = intent.getStringExtra("type");
         String infostr = intent.getStringExtra("info");
+        String strupdate = infostr.substring(infostr.indexOf("@") + 1, infostr.indexOf("#"));
+        //在这里判断一下Intent的type,然后根据不同的type将传过来的string进行截取
+        if(type.equals("update")){
+            infostr = infostr.substring(infostr.indexOf("#")+1,infostr.length());
+        }else{
+            infostr = infostr.substring(infostr.lastIndexOf("@") + 1, infostr.length());
+        }
         array = infostr.split("#");
         if(type.equals("look")){
+            setPersonInfo(array);
+            friendaccount = phone1.getText().toString();
+            add.setVisibility(View.INVISIBLE);
+        }else if(type.equals("update")){
+            update = strupdate.split("@");
+            Log.e("update,length", update.length+"");
             setPersonInfo(array);
             friendaccount = phone1.getText().toString();
             add.setVisibility(View.INVISIBLE);
@@ -106,29 +122,28 @@ public class Xunlian_PersonInfo extends Activity{
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    request = tools.Key2Json("15","account",account,"friendaccount",friendaccount);
-                    Log.e("0000000", request);
+                    request = tools.Key2Json("15", "account", account, "friendaccount", friendaccount);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                            String string = tools.sendString2ServersSocket(request);
-                            String[] strarry ;
-                            strarry = tools.parseJSONMark12(string);
-                            if(strarry[0].equals("failure")){
-                                Message msg = Message.obtain();
-                                msg.what = 2;
-                                msg.obj = strarry[1];
-                                handler.sendMessage(msg);
-                                appManger.finishActivity(Xunlian_PersonInfo.this);
-                            }else if(strarry[0].equals("success")){
-                                Message msg = Message.obtain();
-                                msg.what = 2;
-                                msg.obj = "添加成功";
-                                handler.sendMessage(msg);
-                                setFirendInfo(array);
-                                appManger.finishActivity(Xunlian_PersonInfo.this);
-                            }
+                                String string = tools.sendString2ServersSocket(request);
+                                String[] strarry;
+                                strarry = tools.parseJSONMark12(string);
+                                if (strarry[0].equals("failure")) {
+                                    Message msg = Message.obtain();
+                                    msg.what = 2;
+                                    msg.obj = strarry[1];
+                                    handler.sendMessage(msg);
+                                    appManger.finishActivity(Xunlian_PersonInfo.this);
+                                } else if (strarry[0].equals("success")) {
+                                    Message msg = Message.obtain();
+                                    msg.what = 2;
+                                    msg.obj = "添加成功";
+                                    handler.sendMessage(msg);
+                                    setFirendInfo(array);
+                                    appManger.finishActivity(Xunlian_PersonInfo.this);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -153,12 +168,42 @@ public class Xunlian_PersonInfo extends Activity{
         qq.setText(info[7]);
         weibo.setText(info[8]);
         peraccount.setText(info[9]);
+        if(type.equals("update")){
+        for(String  x : update){
+            switch (Integer.valueOf(x)){
+                case 1:
+                    phone1.setTextColor(Color.parseColor("#ff0000"));
+                    break;
+                case 2:
+                    phone2.setTextColor(Color.parseColor("#ff0000"));
+                    break;
+                case 4:
+                    phone3.setTextColor(Color.parseColor("#ff0000"));
+                    break;
+                case 8:
+                    email1.setTextColor(Color.parseColor("#ff0000"));
+                    break;
+                case 16:
+                    email2.setTextColor(Color.parseColor("#ff0000"));
+                    break;
+                case 32:
+                    email3.setTextColor(Color.parseColor("#ff0000"));
+                    break;
+                case 64:
+                    qq.setTextColor(Color.parseColor("#ff0000"));
+                    break;
+                case 128:
+                    weibo.setTextColor(Color.parseColor("#ff0000"));
+                    break;
+            }
+
+        }
+        }
     }
 
     private void init() {
         account = getAccount();
         peraccount = (TextView) findViewById(R.id.account_number);
-
         name = (TextView) findViewById(R.id.newinfo_edt_name);
         phone1 = (TextView) findViewById(R.id.addresult_txt_StrPhone1);
         phone2 = (TextView) findViewById(R.id.addresult_txt_StrPhone2);

@@ -130,11 +130,16 @@ public class Xunlian_NewInfo extends Activity implements OnClickListener{
 						Log.e("data",data);
 					}
 
+//					if (!newinfo[0].equals(oldinfo[0])&&data.equals("")) {
+//						update = new String[]{"no"};
+//					}else{
+//						update = data.split("!");
+//					}
 					if (!newinfo[0].equals(oldinfo[0])&&data.equals("")) {
-						update = new String[]{"no"};
-					}else{
-						update = data.split("!");
+						data += 1 + "#" + newinfo[1] + "#!";
 					}
+						update = data.split("!");
+
 
 					if (!data.equals("")||update[0].equals("no")) {
 						new Thread(new Runnable() {

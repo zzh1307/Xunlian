@@ -45,7 +45,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center"
                     android:weightSum="2"
@@ -82,14 +82,14 @@
                         android:text="姓名:"
                         android:layout_marginLeft="15dp" />
                     <EditText
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
                         android:id="@+id/newinfo_edt_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
                         android:layout_marginRight="10dp"
                         android:singleLine="true"
                         android:maxLength="10"
                         android:hint="请输入姓名"
-                        android:textSize="15dp"
                         android:gravity="center_vertical" />
                 </LinearLayout>
                 </LinearLayout>
@@ -129,31 +129,34 @@
                 />
             </LinearLayout>
                     <EditText
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
                         android:id="@+id/newinfo_edt_StrPhone1"
                         android:layout_width="200dp"
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:inputType="phone"
-                        android:layout_height="40dp"
                         android:hint="手机1"
                         android:visibility="gone" />
                     <EditText
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
                         android:id="@+id/newinfo_edt_StrPhone2"
                         android:layout_width="200dp"
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:inputType="phone"
-                        android:layout_height="40dp"
                         android:hint="手机2"
                         android:visibility="gone" />
                     <EditText
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
                         android:id="@+id/newinfo_edt_StrPhone3"
                         android:hint="手机3"
                         android:layout_width="200dp"
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:inputType="phone"
-                        android:layout_height="40dp"
                         android:visibility="gone" />
 
             <LinearLayout
@@ -193,34 +196,37 @@
 
 
                     <EditText
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
                         android:id="@+id/newinfo_edt_StrEmail1"
                         android:inputType="textEmailAddress"
                         android:hint="邮箱1"
                         android:layout_width="200dp"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:layout_height="40dp"
                         android:visibility="gone" />
 
 
                     <EditText
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
                         android:id="@+id/newinfo_edt_StrEmail2"
                         android:inputType="textEmailAddress"
                         android:hint="邮箱2"
                         android:layout_width="200dp"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:layout_height="40dp"
                         android:visibility="gone" />
 
                     <EditText
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
                         android:id="@+id/newinfo_edt_StrEmail3"
                         android:inputType="textEmailAddress"
                         android:hint="邮箱3"
                         android:layout_width="200dp"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:layout_height="40dp"
                         android:visibility="gone" />
 
             <LinearLayout
@@ -261,13 +267,14 @@
 
 
                 <EditText
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
                     android:id="@+id/newinfo_edt_Strqq"
                     android:inputType="textEmailAddress"
                     android:hint="QQ"
                     android:layout_width="200dp"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:layout_height="40dp"
                     android:visibility="gone" />
 
 
@@ -308,13 +315,14 @@
 
 
                     <EditText
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
                         android:id="@+id/newinfo_edt_Strweibo1"
                         android:inputType="textEmailAddress"
                         android:hint="微博"
                         android:layout_width="200dp"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:layout_height="40dp"
                         android:visibility="gone" />
 
 

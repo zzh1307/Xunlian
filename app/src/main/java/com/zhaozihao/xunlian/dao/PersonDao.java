@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.zhaozihao.xunlian.XunLian.Tools.Person;
 import com.zhaozihao.xunlian.XunLian.Tools.Tools;
+import com.zhaozihao.xunlian.XunLian.Tools.UpdateInfo;
 import com.zhaozihao.xunlian.db.PersonSQLiteOpenHelper;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class PersonDao {
     public Tools tools= null;
+    String[] where = {"phone1","phone2","phone3","email1","email2","email3","qq","weibo"};
 
     private PersonSQLiteOpenHelper mOpenHelper;	// 数据库的帮助类对象
 
@@ -35,8 +37,8 @@ public class PersonDao {
         if(db.isOpen()) {	// 如果数据库打开, 执行添加的操作
 
             // 执行添加到数据库的操作
-            Log.e("eeeeee",person.toString());
-            db.execSQL("insert into friendInfo (name, phone1,phone2,phone3,email1,email2,email3,qq,weibo,account) values(?,?,?,?,?,?,?,?,?,?);", new Object[]{person.getName(), tools.encryption(person.getPhone1()),tools.encryption(person.getPhone2()),tools.encryption(person.getPhone3()),tools.encryption(person.getEmail1()),tools.encryption(person.getEmail2()),tools.encryption(person.getEmail3()), tools.encryption(person.getQq()),tools.encryption(person.getWeibo()),tools.encryption(person.getAccount())});
+            Log.e("eeeeee", person.toString());
+            db.execSQL("insert into friendInfo (name, phone1,phone2,phone3,email1,email2,email3,qq,weibo,account) values(?,?,?,?,?,?,?,?,?,?);", new Object[]{person.getName(), tools.encryption(person.getPhone1()), tools.encryption(person.getPhone2()), tools.encryption(person.getPhone3()), tools.encryption(person.getEmail1()), tools.encryption(person.getEmail2()), tools.encryption(person.getEmail3()), tools.encryption(person.getQq()), tools.encryption(person.getWeibo()), tools.encryption(person.getAccount())});
 
             db.close();	// 数据库关闭
         }
@@ -71,18 +73,57 @@ public class PersonDao {
 
 
     /**
-     * 根据id找到记录, 并且修改姓名
+     * 根据id找到记录, 并且修改
      * @param
      * @param
      */
-    public void update(String key, String value,String phone) {
+    public boolean update(List<UpdateInfo> list,String name) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        if(db.isOpen()) {	// 如果数据库打开, 执行添加的操作
-
-            db.execSQL("update friendInfo set "+key+" = ? where phone1 = ?;", new Object[]{value,phone});
+        if(db.isOpen()) {
+            db.execSQL("update friendInfo set " + "name" + " = ? where account = ?;", new Object[]{name, tools.encryption(list.get(0).getAccount())});
+        for (int i = 0;i<list.size();i++){
+            UpdateInfo info = list.get(i);
+            switch (info.getKey()){
+                case 1:
+                    db.execSQL("update friendInfo set " + where[0] + " = ? where account = ?;", new Object[]{tools.encryption(info.getValue()), tools.encryption(info.getAccount())});
+                    Log.e("sql",info.getValue()+"-----"+info.getAccount());
+                    break;
+                case 2:
+                    db.execSQL("update friendInfo set "+where[1]+" = ? where account = ?;", new Object[]{tools.encryption(info.getValue()), tools.encryption(info.getAccount())});
+                    Log.e("sql", info.getValue() + "-----" + info.getAccount());
+                    break;
+                case 4:
+                    db.execSQL("update friendInfo set "+where[2]+" = ? where account = ?;", new Object[]{tools.encryption(info.getValue()), tools.encryption(info.getAccount())});
+                    Log.e("sql", info.getValue() + "-----" + info.getAccount());
+                    break;
+                case 8:
+                    db.execSQL("update friendInfo set "+where[3]+" = ? where account = ?;", new Object[]{tools.encryption(info.getValue()), tools.encryption(info.getAccount())});
+                    Log.e("sql", info.getValue() + "-----" + info.getAccount());
+                    break;
+                case 16:
+                    db.execSQL("update friendInfo set "+where[4]+" = ? where account = ?;", new Object[]{tools.encryption(info.getValue()), tools.encryption(info.getAccount())});
+                    Log.e("sql", info.getValue() + "-----" + info.getAccount());
+                    break;
+                case 32:
+                    db.execSQL("update friendInfo set "+where[5]+" = ? where account = ?;", new Object[]{tools.encryption(info.getValue()), tools.encryption(info.getAccount())});
+                    Log.e("sql", info.getValue() + "-----" + info.getAccount());
+                    break;
+                case 64:
+                    db.execSQL("update friendInfo set "+where[6]+" = ? where account = ?;", new Object[]{tools.encryption(info.getValue()), tools.encryption(info.getAccount())});
+                    Log.e("sql", info.getValue() + "-----" + info.getAccount());
+                    break;
+                case 128:
+                    db.execSQL("update friendInfo set "+where[7]+" = ? where account = ?;", new Object[]{tools.encryption(info.getValue()), tools.encryption(info.getAccount())});
+                    Log.e("sql", info.getValue() + "-----" + info.getAccount());
+                    break;
+            }
+        }
 
             db.close();	// 数据库关闭
+            Log.e("sql", "close");
+            return true;
         }
+        return  false;
     }
 
     public List<Person> queryAll() {
@@ -96,7 +137,6 @@ public class PersonDao {
 
                 String[] info = new  String[10];
                 Person person;
-
                 while(cursor.moveToNext()) {
                     info[0] = cursor.getString(1);	// 取姓名
                     info[1] = tools.decryption(cursor.getString(2));	// 取年龄
@@ -119,33 +159,31 @@ public class PersonDao {
 
             db.close();
             return personList;
+        }else{
+            return null;
         }
-        return personList;
     }
 
     /**
-     * 根据id查询人
-     * @param phone
+     * 根据account查询人
+     * @param account
      * @return
      */
-    public Person queryItem(String phone) {
+    public Person queryItem(String account) {
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();	// 获得一个只读的数据库对象
         if(db.isOpen()) {
-            Cursor cursor = db.rawQuery("select _id, name, phone1,phone2,phone3,email1,email2,email3,qq,weibo from friendInfo where phone1 = ?;", new String[]{phone});
+            Cursor cursor = db.rawQuery("select _id, name, phone1,phone2,phone3,email1,email2,email3,qq,weibo,account from friendInfo where account = ?;", new String[]{account});
             String[] info = new  String[10];
             if(cursor != null && cursor.moveToFirst()) {
                 info[0] = cursor.getString(1);	// 取姓名
-                info[1] = cursor.getString(2);	// 取年龄
-                info[2] = cursor.getString(3);
-                info[3] = cursor.getString(4);
-
-                info[4] = cursor.getString(5);
-                info[5] = cursor.getString(6);
-                info[6] = cursor.getString(7);
-
-                info[7] = cursor.getString(8);
-
-                info[8] = cursor.getString(9);
+                info[1] = tools.decryption(cursor.getString(2));	// 取年龄
+                info[2] = tools.decryption(cursor.getString(3));
+                info[3] = tools.decryption(cursor.getString(4));
+                info[4] = tools.decryption(cursor.getString(5));
+                info[5] = tools.decryption(cursor.getString(6));
+                info[6] = tools.decryption(cursor.getString(7));
+                info[7] = tools.decryption(cursor.getString(8));
+                info[8] = tools.decryption(cursor.getString(9));
                 info[9] = tools.decryption(cursor.getString(10));
 
                 db.close();

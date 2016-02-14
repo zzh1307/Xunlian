@@ -231,7 +231,11 @@
             android:label="@string/title_activity_xunlian__account_safe" />
         <activity
             android:name=".XunLian.Activity.Xunlian_ForgetMibao"
-            android:label="@string/title_activity_xunlian__forget_mibao"></activity>
+            android:label="@string/title_activity_xunlian__forget_mibao" />
+        <activity
+            android:name=".XunLian.Activity.Xunlian_Cloud"
+            android:label="@string/title_activity_cloud"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

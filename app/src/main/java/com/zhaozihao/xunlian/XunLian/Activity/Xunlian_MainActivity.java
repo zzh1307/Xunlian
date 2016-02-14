@@ -1,11 +1,14 @@
 package com.zhaozihao.xunlian.XunLian.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,20 +24,29 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengRegistrar;
 import com.zhaozihao.xunlian.R;
+import com.zhaozihao.xunlian.XunLian.Adapter.AppPersonListAdapter;
 import com.zhaozihao.xunlian.XunLian.Frangment.Frangment_Add;
 import com.zhaozihao.xunlian.XunLian.Frangment.Frangment_PersonList;
 import com.zhaozihao.xunlian.XunLian.Frangment.Frangment_Setting;
 import com.zhaozihao.xunlian.XunLian.Frangment.Frangment_Title;
+import com.zhaozihao.xunlian.XunLian.Frangment.Frangment_Xunlian_PersonList;
 import com.zhaozihao.xunlian.XunLian.Tools.AppManger;
+import com.zhaozihao.xunlian.XunLian.Tools.Person;
 import com.zhaozihao.xunlian.XunLian.Tools.Tools;
+import com.zhaozihao.xunlian.XunLian.Tools.UpdateInfo;
+import com.zhaozihao.xunlian.dao.PersonDao;
 
-public class Xunlian_MainActivity extends  Activity implements View.OnClickListener{
+import java.util.List;
+
+public class Xunlian_MainActivity extends  Activity implements View.OnClickListener,AppPersonListAdapter.CheckListener,Frangment_Xunlian_PersonList.UpdateListener {
     private Button but0;
     private Button but1;
-    private Button but2;  
+    private Button but2;
+    AlertDialog.Builder builder;
     private Button but3;  
     private long mExitTime;
     String account = null;
+    List<List<UpdateInfo>> perlist1;
     android.support.v4.app.Fragment talk;
     Tools tools = new Tools(Xunlian_MainActivity.this);
     View view;
@@ -43,6 +55,7 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
     private Frangment_Add frag2;
     private Frangment_Setting frag3;
     AppManger appManger;
+    Boolean isPressed = true,isShow = false;
     View title;
     FragmentTransaction transaction;
     ProgressDialog pd = null;
@@ -59,6 +72,8 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
                 FragmentTransaction transaction1 = fm.beginTransaction();
                 transaction.replace(R.id.id_content, frag3);
                 transaction1.commit();
+            }else if(msg.what == 2){
+                showListDialog((List<List<UpdateInfo>>) msg.obj);
             }
 
 
@@ -118,7 +133,18 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
         transaction.commit();
     }
 
-    @Override  
+    @Override
+    protected void onPostResume() {
+        if(isPressed&&isShow){
+            Message msg = Message.obtain();
+            msg.what = 2;
+            msg.obj = perlist1;
+            handler.sendMessage(msg);
+        }
+        super.onPostResume();
+    }
+
+    @Override
     public void onClick(View v)  
     {
         FragmentManager fm = getFragmentManager();
@@ -138,18 +164,17 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
 //                title.setVisibility(View.VISIBLE);
 //                transaction.replace(R.id.id_content, talk);
 //                break;
-        case R.id.but1:  
+        case R.id.but1:
+            isPressed = true;
         	but1.setTextColor(-65536);
         	but2.setTextColor(-16777216);
             but3.setTextColor(-16777216);
-            if (frag1 == null)
-            {
-                frag1 = new Frangment_PersonList();
-            }
+            frag1 = new Frangment_PersonList();
             title.setVisibility(View.VISIBLE);
             transaction.replace(R.id.id_content, frag1);
             break;
         case R.id.but2:
+            isPressed = false;
             if (frag2 == null)
                {
                  frag2 = new Frangment_Add();
@@ -161,8 +186,7 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
         	but3.setTextColor(-16777216);
 			break;
         case R.id.but3:
-            //todo
-
+            isPressed = false;
             title.setVisibility(View.GONE);
         	but1.setTextColor(-16777216);
         	but2.setTextColor(-16777216);
@@ -198,6 +222,64 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
         }
         return true;
     }
-	
+    public void showListDialog(final List<List<UpdateInfo>> perlist){
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle("点击查看更新信息");
+        String[] persons = new String[perlist.size()];
+        for(int i = 0;i<perlist.size();i++){
+            persons[i] = perlist.get(i).get(i).getName();
+        }
+        builder.setItems(persons, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PersonDao dao;
+                dao = new PersonDao(Xunlian_MainActivity.this, account);
+                Person aa = dao.queryItem(tools.encryption(perlist.get(which).get(0).getAccount()));
+                Intent Intent = new Intent();
+                String mark = "@";
+                for (int i = 0; i < perlist.get(which).size(); i++) {
+                    mark += perlist.get(which).get(i).getKey() + "@";
+                }
+                Intent.setClass(Xunlian_MainActivity.this, Xunlian_PersonInfo.class);
+                Intent.putExtra("type", "update");
+                Intent.putExtra("info", mark + "#" + aa.toString());
+                startActivity(Intent);
+            }
+        });
+        builder.setCancelable(false);
+        builder.setNegativeButton("朕知道了,退下吧", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                isShow = false;
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Log.e("Xunlian_MainActivity", "xiaoshi ");
+                isShow = false;
+                dialog.dismiss();
+            }
+        });
+    }
 
+    @Override
+    public void send(List<List<UpdateInfo>> perlist) {
+        perlist1 = perlist;
+        isShow = true;
+        Message msg = Message.obtain();
+        msg.what = 2;
+        msg.obj = perlist;
+        handler.sendMessage(msg);
+
+    }
+
+    @Override
+    public void check(Boolean ischeck) {
+        if(ischeck){
+            isShow = false;
+        }
+    }
 }

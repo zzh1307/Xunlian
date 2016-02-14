@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.zhaozihao.xunlian.R;
+import com.zhaozihao.xunlian.XunLian.Adapter.AppPersonListAdapter;
 import com.zhaozihao.xunlian.XunLian.Tools.Tools;
 
 
@@ -29,6 +31,7 @@ public class Frangment_PersonList extends Fragment implements OnClickListener{
 	 FragmentTransaction transaction;
 	ProgressDialog pd = null;
 	String account = "";
+	AppPersonListAdapter.CheckListener checkListener;
 
 	public Handler handler = new Handler() {
 
@@ -56,6 +59,7 @@ public class Frangment_PersonList extends Fragment implements OnClickListener{
     {  
     	viewall = inflater.inflate(R.layout.personlist, container, false);
     	setDefaultFragment();
+		checkListener = (AppPersonListAdapter.CheckListener) getActivity();
 		System_Btn = (Button) viewall.findViewById(R.id.system_btn);
     	Local_Btn = (Button) viewall.findViewById(R.id.local_btn);
     	System_Btn.setOnClickListener(this);
@@ -71,6 +75,7 @@ public class Frangment_PersonList extends Fragment implements OnClickListener{
         transaction = fm.beginTransaction();
 		switch (arg0.getId()) {
 		case R.id.local_btn:
+			checkListener.check(true);
 			Message msg = Message.obtain();
 			msg.what = 0;
 			handler.sendMessage(msg);
@@ -95,16 +100,14 @@ public class Frangment_PersonList extends Fragment implements OnClickListener{
 					}
 				}
 			}).start();
-			Local_Btn.setTextColor(-65536);
-			System_Btn.setTextColor(-16777216);
+			Local_Btn.setTextColor(Color.parseColor("#0000ff"));
+			System_Btn.setTextColor(Color.parseColor("#000000"));
 			break;
 		case R.id.system_btn:
-			if(local == null){
-				 local = new Frangment_Xunlian_PersonList();
-			 }
-			 System_Btn.setTextColor(-65536);
-			 Local_Btn.setTextColor(-16777216);
-		     transaction.replace(R.id.PersonList, local);
+			local = new Frangment_Xunlian_PersonList();
+			Local_Btn.setTextColor(Color.parseColor("#000000"));
+			System_Btn.setTextColor(Color.parseColor("#0000ff"));
+			transaction.replace(R.id.PersonList, local);
 			break;
 		default:
 			break;

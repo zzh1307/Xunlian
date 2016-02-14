@@ -32,11 +32,12 @@
 
         android:id="@+id/Login_EDT_Account"
         android:layout_width="300dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:inputType="text"
+        android:textSize="15dp"
         android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
         android:hint="请输入账号"
         />
@@ -59,10 +60,11 @@
 
         android:id="@+id/Login_EDT_Password"
         android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:layout_height="40dp"
         android:singleLine="true"
         android:inputType="textPassword"
         android:hint="请输入密码"
@@ -108,11 +110,13 @@
     <Button
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:background="#ffffff"
+        android:background="@null"
         android:id="@+id/Login_BTN_Forget"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="忘记密码"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#ff0000"
+        android:text="忘记密码?"
         />
 
 </LinearLayout>

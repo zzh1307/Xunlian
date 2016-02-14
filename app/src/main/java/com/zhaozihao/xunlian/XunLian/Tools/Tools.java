@@ -29,6 +29,7 @@ import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.crypto.BadPaddingException;
@@ -418,6 +419,29 @@ public Bitmap BytesToBitmap(byte[] b) {
            File dirFile = new File(sdCardRoot + File.separator + "xunlian" +File.separator);
            dirFile.mkdirs();
            return dirFile;
+    }
+
+    public List<List<UpdateInfo>> parseJSONMark8(String strResult) throws NumberFormatException, JSONException {
+        List<List<UpdateInfo>> perlist= new ArrayList<List<UpdateInfo>>();
+
+        JSONObject jsonObj = new JSONObject(strResult);
+        if (jsonObj.getInt("error") != 1) {
+            JSONObject result = jsonObj.getJSONObject("result");
+            JSONArray udArray = new JSONArray(result.getString("ResultINFO"));
+            for (int i = 0; i < udArray.length(); i++) {
+                List<UpdateInfo> list = new ArrayList<UpdateInfo>();
+                JSONObject jsonUd = (JSONObject) udArray.get(i);
+                JSONArray contactArray = jsonUd.getJSONArray("contact");
+                for (int j = 0; j < contactArray.length(); j++) {
+                    JSONObject contactObj = (JSONObject) contactArray.get(j);
+                    UpdateInfo info = new UpdateInfo(jsonUd.getString("account"), contactObj.getInt("mark"), contactObj.getString("contact"));
+                    info.setName(jsonUd.getString("name"));
+                    list.add(info);
+                }
+                perlist.add(list);
+            }
+        }
+            return perlist;
         }
 
 
@@ -693,6 +717,33 @@ public Bitmap BytesToBitmap(byte[] b) {
         Log.i("decryption解密：", str + "\n" + pStr);
         return pStr;
     }
+
+    public String Key2Json19(String s, String account, List<HashMap<String, Object>> data) {
+
+
+            String jsonresult = "";
+            JSONObject object = new JSONObject();
+            try {
+                object.put("mark", s);
+                object.put("account",account);
+                JSONArray contacts = new JSONArray();
+                for (int i = 0;i< data.size();i++){
+                    JSONObject person = new JSONObject();
+                    person.put("name", data.get(i).get("Name"));
+                    person.put("phone", data.get(i).get("Phone"));
+                    contacts.put(i,person);
+                }
+                object.put("contacts",contacts);
+                jsonresult = object.toString();
+                Log.e("------",jsonresult);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return "22";
+            }
+            return jsonresult;
+        }
+
+
 }
 
 

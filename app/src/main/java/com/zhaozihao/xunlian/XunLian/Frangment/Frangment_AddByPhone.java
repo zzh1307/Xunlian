@@ -59,7 +59,7 @@ public class Frangment_AddByPhone extends Fragment {
 			@Override
 			public void back(String info) {
 				if (info.equals("success")) {
-					getInfo(info);
+					getInfo();
 				} else {
 					Message msg1 = new Message();
 					msg1.what = 4;
@@ -84,7 +84,9 @@ public class Frangment_AddByPhone extends Fragment {
 				account = getAccount();
 				if (friendaccount.equals("")) {
 					myToast.showToast(getActivity(), "输入的手机号不可以为空哦...", Toast.LENGTH_SHORT);
-				} else {
+				} else if(friendaccount.equals(account)){
+					myToast.showToast(getActivity(), "不可以添加自己哦", Toast.LENGTH_SHORT);
+				}else{
 					/*
 					 *这里面添加请求朋友所有信息的
 					 */
@@ -94,11 +96,17 @@ public class Frangment_AddByPhone extends Fragment {
 							try {
 								String result = tools.sendString2ServersSocket(tools.Key2Json("9", new String[]{"account", "friendaccount"}, new String[]{account, friendaccount}));
 								JSONObject jsonObj = new JSONObject(result);
-								JSONObject jresult = jsonObj.getJSONObject("result");
-								question = jresult.getString("ResultINFO");
-								Message msg = Message.obtain();
-								msg.what = 5;
-								handler.sendMessage(msg);
+								int error = jsonObj.getInt("error");
+								if(error == 3){
+									getInfo();
+								}else if(error == 4){
+									JSONObject jresult = jsonObj.getJSONObject("result");
+									question = jresult.getString("ResultINFO");
+									Message msg = Message.obtain();
+									msg.what = 5;
+									handler.sendMessage(msg);
+								}
+
 
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -111,7 +119,7 @@ public class Frangment_AddByPhone extends Fragment {
 		});
        return  view;
     }
-	void getInfo(final String key){
+	void getInfo(){
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

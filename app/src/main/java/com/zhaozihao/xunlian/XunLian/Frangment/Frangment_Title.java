@@ -60,8 +60,8 @@ public class Frangment_Title extends Fragment implements View.OnClickListener{
                     e.printStackTrace();
                 }
                 ad = new AlertDialog.Builder(getActivity())
-                        .setTitle("关于")
-                        .setMessage("\t\t关于讯连\n\n\t\t版本名:\t"+versionName+"\n\t\t包名:"+packageName)
+                        .setTitle("关于讯连")
+                        .setMessage("\t\t\n\t\t版本号:\t"+versionName+"\n")//\t\t开发团队:小萝卜")
                         .setPositiveButton("检查更新", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

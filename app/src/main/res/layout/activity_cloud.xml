@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f0f0f0"
+    tools:context="com.zhaozihao.xunlian.XunLian.Activity.Xunlian_AccountSafe">
+    <TextView
+        android:background="#66b2ff"
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:text="云端备份"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        />
+    <TextView
+        android:textColor="#4D4D4D"
+        android:layout_marginTop="20dp"
+        android:id="@+id/cloud_push"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="备份本地联系人"
+        android:background="#ffffff"
+        android:layout_gravity="center_vertical"
+        android:textSize="15dp" />
+    <TextView
+        android:textColor="#4D4D4D"
+        android:layout_marginTop="20dp"
+        android:id="@+id/cloud_pull"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="查看云端联系人"
+        android:background="#ffffff"
+        android:layout_gravity="center_vertical"
+        android:textSize="15dp" />
+
+</LinearLayout>

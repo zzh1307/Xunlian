@@ -99,7 +99,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="60dp"
 	        android:gravity="center"
-	        android:text="备份数据"
+	        android:text="云端备份"
 	android:background="#ffffff"
 	        android:layout_gravity="center_vertical"
 	        android:textSize="15dp" />

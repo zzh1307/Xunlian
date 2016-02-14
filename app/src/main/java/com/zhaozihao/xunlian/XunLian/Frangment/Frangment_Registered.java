@@ -43,7 +43,6 @@ public class Frangment_Registered extends Fragment implements View.OnClickListen
     ProgressDialog pd = null;
     LinearLayout ll = null;
     Boolean is = false;
-    Boolean is1 = false;
     MyToast myToast = null;
     AppManger appManger;
 

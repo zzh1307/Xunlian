@@ -17,11 +17,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_Account;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_AccountSafe;
+import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_Cloud;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_LockActivity;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_NewInfo;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_PatternUnlockSetting;
@@ -201,7 +201,10 @@ public class Frangment_Setting extends Fragment implements OnClickListener{
 
 					@Override
 					public void back(String name) {
-						Toast.makeText(getActivity(),name,0).show();
+						Message msg = new Message();
+						msg.what = 4;
+						msg.obj = name;
+						handler.sendMessage(msg);
 					}
 				});
 				dg.show();
@@ -209,22 +212,7 @@ public class Frangment_Setting extends Fragment implements OnClickListener{
 				}
 				break;
 			case R.id.Setting_Clean:
-				myToast.showToast(getActivity(),"正在备份联系人...",0);
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							Thread.sleep(4000);
-							Message mag = new Message();
-							mag.what = 4;
-							mag.obj = "备份 成功";
-							handler.sendMessage(mag);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				}).start();
-
+				startActivity(new Intent(getActivity(), Xunlian_Cloud.class));
 				break;
 			case R.id.Setting_SafeItem:
 				Intent intent = new Intent();
@@ -240,7 +228,6 @@ public class Frangment_Setting extends Fragment implements OnClickListener{
 				startActivity(intent);
 				break;
 			case R.id.Setting_DropOut:
-				// TODO: 2015/11/23 0023 退出账户,并且将图案所解锁
 				AlertDialog ad = null;
 				ad = new AlertDialog.Builder(getActivity())
 						.setTitle("退出账号")

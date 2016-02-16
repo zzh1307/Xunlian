@@ -44,8 +44,9 @@ public class Frangment_AddByPhone extends Fragment {
 			}else if(msg.what==3){
 				if(pd!=null){
 					pd.dismiss();
-					myToast.showToast(getActivity(), msg.obj.toString(), 0);
+
 				}
+				myToast.showToast(getActivity(), msg.obj.toString(), 0);
 			}else if(msg.what==4){
 				myToast.showToast(getActivity(), msg.obj.toString(), 0);
 			}else if(msg.what == 5){
@@ -118,6 +119,7 @@ public class Frangment_AddByPhone extends Fragment {
 							try {
 								String result = tools.sendString2ServersSocket(tools.Key2Json("9", new String[]{"account", "friendaccount"}, new String[]{account, friendaccount}));
 								pd.dismiss();
+								pd = null;
 								JSONObject jsonObj = new JSONObject(result);
 								int error = jsonObj.getInt("error");
 								if(error == 3){
@@ -133,6 +135,7 @@ public class Frangment_AddByPhone extends Fragment {
 									question = jresult.getString("ResultINFO");
 									Message msg = Message.obtain();
 									msg.what = 3;
+									msg.obj = question;
 									handler.sendMessage(msg);
 								}
 

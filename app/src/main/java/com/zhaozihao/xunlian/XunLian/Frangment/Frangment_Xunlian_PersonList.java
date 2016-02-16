@@ -42,6 +42,7 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 	List<Person> personList = new ArrayList<Person>();
 	private SwipeRefreshLayout mSwipeLayout;
 	PersonDao dao;
+	Boolean is1 = false;
 	View view;
 	MyToast myToast = null;
 	Tools tools = new Tools(getActivity());
@@ -75,6 +76,9 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 					}
 					break;
 				case 3:
+					if(pd!=null){
+						pd.dismiss();
+					}
 					ad.show();
 					mSwipeLayout.setRefreshing(false);
 					break;
@@ -121,10 +125,6 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 		public void send(List<List<UpdateInfo>> perlist );
 	}
 
-
-
-
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
@@ -149,7 +149,7 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 		lv = (ListView) view.findViewById(R.id.Local_PersonList);
 		dao = new PersonDao(getActivity(), account);
 		personList = dao.queryAll();
-		if (personList.equals(null) || personList.size() == 0 || personList.isEmpty()) {
+		if (is1||personList.equals(null) || personList.size() == 0 || personList.isEmpty()) {
 			Refresh(1);
 		} else {
 			isSuccess = true;
@@ -188,13 +188,15 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 		dao = new PersonDao(getActivity(), account);
 		isSuccess = false;
 		if (a == 1) {
-			Message msg = Message.obtain();
-			msg.what = 7;
-			msg.obj = "我正在帮您查找数据...";
-			mhandler.sendMessage(msg);
+			is1 = true;
+//			Message msg = Message.obtain();
+//			msg.what = 7;
+//			msg.obj = "我正在帮您查找数据...";
+//			mhandler.sendMessage(msg);
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
+
 					String string = tools.sendString2ServersSocket(tools.Key2Json("7", "account", account));
 					try {
 						personList = tools.parseJSONMark7(string);

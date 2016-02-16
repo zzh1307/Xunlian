@@ -101,7 +101,7 @@ public class Frangment_AddByPhone extends Fragment {
 						@Override
 						public void run() {
 							try {
-								Thread.sleep(5000);
+								Thread.sleep(3000);
 								if(pd!=null){
 									Message msg = Message.obtain();
 									msg.what = 3;
@@ -156,7 +156,7 @@ public class Frangment_AddByPhone extends Fragment {
 			@Override
 			public void run() {
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(3000);
 					if(pd!=null){
 						Message msg = Message.obtain();
 						msg.what = 3;

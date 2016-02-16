@@ -196,7 +196,7 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
                         @Override
                         public void run() {
                             try {
-                                Thread.sleep(8000);
+                                Thread.sleep(3000);
                                 if(pd!=null){
                                     Message msg = Message.obtain();
                                     msg.what = 3;

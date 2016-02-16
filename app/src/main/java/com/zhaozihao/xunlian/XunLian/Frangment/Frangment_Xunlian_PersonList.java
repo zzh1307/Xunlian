@@ -308,7 +308,7 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 			@Override
 			public void run() {
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(3000);
 					if (!isSuccess) {
 						Message msg = Message.obtain();
 						msg.what = 1;

@@ -3,6 +3,7 @@ package com.zhaozihao.xunlian.XunLian.Activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zhaozihao.xunlian.R;
@@ -21,6 +23,7 @@ import com.zhaozihao.xunlian.XunLian.Tools.Tools;
 
 import org.json.JSONException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +54,9 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
                        pd.dismiss();
                        myToast.showToast(Xunlian_Cloud.this, msg.obj.toString(), 0);
                    }
+                   break;
+               case 2:
+                       myToast.showToast(Xunlian_Cloud.this, msg.obj.toString(), 0);
                    break;
             }
 
@@ -94,6 +100,8 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cloud);
         myToast = new MyToast();
         initView();
@@ -110,6 +118,7 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.cloud_pull:
+                is = false;
                 Message msg = Message.obtain();
                 msg.what = 0;
                 msg.obj = "正在获取云端数据";
@@ -134,11 +143,31 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
                     @Override
                     public void run() {
                         String result = tools.sendString2ServersSocket(tools.Key2Json("20", "account",getAccount()));
+                        List<HashMap<String, Object>> data1 = tools.parseJSONMark20(result);
+                        if(data1.size()>0){
+                            is = true;
+                            Intent intent = new Intent();
+                            intent.setClass(Xunlian_Cloud.this, Xunlian_showLocalPer.class);
+                            intent.putExtra("person", (Serializable) data1);
+                            startActivity(intent);
+                        }else{
+                            is = true;
+                            Message msg = new Message();
+                            msg.what = 2;
+                            msg.obj = "获取云端数据失败";
+                            handler.sendMessage(msg);
+                        }
+                        is = true;
                         pd.dismiss();
+                        Message msg = new Message();
+                        msg.what = 2;
+                        msg.obj = "result:"+result;
+                        handler.sendMessage(msg);
                     }
                 }).start();
                 break;
             case R.id.cloud_push:
+                is = false;
                 Message msg4 = Message.obtain();
                 msg4.what = 0;
                 msg4.obj = "正在努力推送数据";
@@ -163,7 +192,7 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
                     @Override
                     public void run() {
                         queryContacts();
-                            String result = tools.sendString2ServersSocket(tools.Key2Json19("19",getAccount(), data));
+                        String result = tools.sendString2ServersSocket(tools.Key2Json19("19",getAccount(), data));
                         try {
                             String[] strarry = tools.parseJSONMark12(result);
                             if (strarry[0].equals("success")) {

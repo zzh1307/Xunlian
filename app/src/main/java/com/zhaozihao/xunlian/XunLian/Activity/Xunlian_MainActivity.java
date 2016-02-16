@@ -41,6 +41,7 @@ import java.util.List;
 public class Xunlian_MainActivity extends  Activity implements View.OnClickListener,AppPersonListAdapter.CheckListener,Frangment_Xunlian_PersonList.UpdateListener {
     private Button but0;
     private Button but1;
+    SharedPreferences sp = null;
     private Button but2;
     AlertDialog.Builder builder;
     private Button but3;  
@@ -88,11 +89,20 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sp.edit().putBoolean("isFirstGetUser", false).commit();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);  
         setContentView(R.layout.activity_main);
+        sp = getSharedPreferences("isFirstGetUser", Context.MODE_PRIVATE);
+        sp.edit().putBoolean("isFirstGetUser", true).commit();
         String device_token = UmengRegistrar.getRegistrationId(this);
         Log.e("device_token", device_token);
         PushAgent mPushAgent = PushAgent.getInstance(Xunlian_MainActivity.this);

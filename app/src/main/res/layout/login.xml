@@ -10,29 +10,16 @@
     <ImageView
         android:layout_marginTop="40dp"
         android:id="@+id/Login_IMG_Head"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/demo" />
-    <!--<LinearLayout-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:background="@drawable/smssdk_input_bg_normal"-->
-        <!-->-->
-        <!--<ImageView-->
-            <!--android:layout_width="20dp"-->
-            <!--android:layout_height="20dp"-->
-            <!--android:layout_gravity="bottom"-->
-            <!--android:background="@drawable/user"-->
-            <!--/>-->
+        android:src="@drawable/icont" />
+
     <AutoCompleteTextView
 
         android:id="@+id/Login_EDT_Account"
         android:layout_width="300dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
@@ -41,21 +28,7 @@
         android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
         android:hint="请输入账号"
         />
-    <!--</LinearLayout>-->
-    <!--<LinearLayout-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:background="@drawable/smssdk_input_bg_normal"-->
-        <!-->-->
-        <!--<ImageView-->
-            <!--android:layout_width="20dp"-->
-            <!--android:layout_height="20dp"-->
-            <!--android:layout_gravity="bottom"-->
-            <!--android:background="@drawable/password"-->
-            <!--/>-->
+
     <EditText 
 
         android:id="@+id/Login_EDT_Password"
@@ -114,7 +87,7 @@
         android:id="@+id/Login_BTN_Forget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textColor="#ff0000"
         android:text="忘记密码?"
         />

@@ -71,7 +71,6 @@ public class AppPersonListAdapter extends BaseAdapter {
             public void handleMessage(Message msg) {
                 if(msg.what==1){
                     View view1 = (View)msg.obj;
-                    view1.findViewById(R.id.Item_Set).setVisibility(View.GONE);
                     addListener(view1.findViewById(R.id.item_bg));
                 }else{
 
@@ -141,14 +140,6 @@ public class AppPersonListAdapter extends BaseAdapter {
             holder.name = (TextView) convertView.findViewById(R.id.ItemName);
 
             holder.more = (ImageView) convertView.findViewById(R.id.ItemMore);
-
-            holder.ll = (LinearLayout) convertView.findViewById(R.id.Item_Set);
-
-            holder.tel = (ImageButton) convertView.findViewById(R.id.ItemTel);
-
-            holder.mes = (ImageButton) convertView.findViewById(R.id.ItemMes);
-
-            holder.delete = (ImageButton) convertView.findViewById(R.id.ItemDelete);
 
             convertView.setTag(holder);
 

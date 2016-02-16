@@ -3,11 +3,12 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/item_bg"
     android:orientation="vertical"
     android:background="#ffffff">
     <LinearLayout
         android:layout_width="match_parent"
-        android:id="@+id/item_bg"
+
         android:orientation="horizontal"
         android:layout_height="wrap_content">
 
@@ -18,7 +19,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="fitXY"
-        android:src="@drawable/demo"
+        android:src="@drawable/icont"
         android:layout_gravity="center_vertical"
         android:padding="5dp" />
     <LinearLayout
@@ -50,47 +51,11 @@
         <ImageButton
             android:id="@+id/ItemMore"
             android:layout_width="30dp"
+            android:background="@null"
             android:layout_height="50dp"
             android:src="@drawable/more"
             android:scaleType="fitXY"
             android:layout_gravity="center"
             />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:background="#4a4949"
-        android:layout_height="50dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:gravity="center"
-        android:id="@+id/Item_Set"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:orientation="horizontal">
-
-
-        <ImageButton
-            android:id="@+id/ItemTel"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/tel"
-            android:scaleType="fitXY"
-            />
-        <ImageButton
-            android:id="@+id/ItemMes"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/mes"
-            android:scaleType="fitXY"
-            />
-        <ImageButton
-            android:id="@+id/ItemDelete"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/delete"
-            android:scaleType="fitXY"
-            />
-
     </LinearLayout>
 </LinearLayout>

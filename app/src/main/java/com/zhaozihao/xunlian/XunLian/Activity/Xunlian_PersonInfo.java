@@ -204,6 +204,7 @@ public class Xunlian_PersonInfo extends Activity{
     private void init() {
         account = getAccount();
         peraccount = (TextView) findViewById(R.id.account_number);
+
         name = (TextView) findViewById(R.id.newinfo_edt_name);
         phone1 = (TextView) findViewById(R.id.addresult_txt_StrPhone1);
         phone2 = (TextView) findViewById(R.id.addresult_txt_StrPhone2);

@@ -145,8 +145,8 @@ public class Tools {
             jsonresult = object.toString();//生成返回字符串
         } catch (JSONException e) {  
             e.printStackTrace();  
-        }  
-        return jsonresult;  
+        }
+        return jsonresult+"\r\n";
     }
 	public String Key2Json(String mark,String key1,String value1,String key2,String value2) {
         String jsonresult = "";
@@ -160,8 +160,8 @@ public class Tools {
         } catch (JSONException e) {
             e.printStackTrace();
             return "11";
-        }  
-        return jsonresult;  
+        }
+        return jsonresult+"\r\n";
     }
     public String Key2Json(String mark,String[] K,String[] V) {
         String jsonresult = "";
@@ -177,7 +177,7 @@ public class Tools {
             e.printStackTrace();
             return "11";
         }
-        return jsonresult;
+        return jsonresult+"\r\n";
     }
 
 
@@ -193,7 +193,6 @@ public class Tools {
             object.put("info",info);
             JSONArray array = new JSONArray();
             if(!update[0].equals("no")){
-
                 for (int i = 0;i<update.length;i++){
                     Log.e("aaaaaa", update[i] );
                     String[] info1 =  update[i].split("#");
@@ -202,7 +201,6 @@ public class Tools {
                     jsoninfo.put("content", decryption(info1[1]));
                     Log.e("aaaaaa", jsoninfo.toString() + "----------" + i);
                     array.put(i,jsoninfo);
-
             }
             }
             object.put("update",array);
@@ -211,7 +209,7 @@ public class Tools {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonresult;
+        return jsonresult+"\r\n";
     }
 	
 	public String key2Json(String name[],String value[]) {  
@@ -247,8 +245,8 @@ public class Tools {
             Log.e("------",jsonresult);
         } catch (JSONException e) {
             e.printStackTrace();  
-        }  
-        return jsonresult;  
+        }
+        return jsonresult+"\r\n";
     }
 
 
@@ -285,7 +283,7 @@ public class Tools {
         try {
             // 生成Socket,并且指定IP和端口号
              socket = new Socket();
-             socket.connect(new InetSocketAddress("121.42.210.40", 10001), 3000);
+             socket.connect(new InetSocketAddress("121.42.210.40", 10002), 3000);
             //socket.connect(new InetSocketAddress("192.168.43.165", 10000), 3000);
 
             // 但是对于实时交互性高的程序,建议其改为true,即关闭Nagle算法，
@@ -299,32 +297,30 @@ public class Tools {
              BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
              socket.getOutputStream()));
             //将str里面的回车换成空格
-             writer.write(str.replace("\n", " ") + "\n");
+             writer.write(str);
             //刷新输出流,将数据发送到服务器
              writer.flush();
             //建立读取缓冲区,大小40000,缓冲区大小决定了可以加的好友数
             //设置为最多可加100为好友
-             char[] buffer = new char[40000];
+             char[] buffer = new char[1024];
             //建立标志位.默认为0
             int count = 0;
             //进行数据读取
-            if((count = br.read(buffer))>0){
-                //char[] buffer1 = new char[1024];
-                //将读取到的数据进行转换,转换为String,然后进行拼接
-                result += getInfoBuff(buffer, count)+ "\n";
-                Log.e("sendStr2Socket", result.length()+"");
-
-            }
+//                if((count = br.readLine()>0){
+//                    //char[] buffer1 = new char[1024];
+//                    //将读取到的数据进行转换,转换为String,然后进行拼接
+//                    result += getInfoBuff(buffer, count);
+//                    Log.e("sendStr2Socket", result.length()+"");
+//
+//                }
+//                Log.e("sendStr2Socket", result);
+            result += br.readLine();
             Log.e("sendStr2Socket", result);
 
         }catch (UnknownHostException e) {
             e.printStackTrace();
-            //发生未知错误,返回null
-            return result;
         } catch (IOException e) {
             e.printStackTrace();
-            //发生I/O流错误,返回null
-            return result;
         }
         //请求成功,返回Result
         return result;
@@ -472,6 +468,48 @@ public Bitmap BytesToBitmap(byte[] b) {
         StrArry[7] =ResultINFO.getString("qqNumber");
         StrArry[8] =ResultINFO.getString("weiboNumber");
         StrArry[9] =result.getString("requestPhoneNum");
+        for (int i = 0;i<StrArry.length;i++){
+                if(StrArry[i].equals("")){
+                    switch (i){
+                        case 0:
+
+                            break;
+                        case 1:
+                            StrArry[i] = "手机1";
+
+                            break;
+                        case 2:
+                            StrArry[i] = "手机2";
+
+                            break;
+                        case 3:
+                            StrArry[i] = "手机3";
+
+                            break;
+                        case 4:
+                            StrArry[i] = "邮箱1";
+
+                            break;
+                        case 5:
+                            StrArry[i] = "邮箱2";
+                            break;
+                        case 6:
+                            StrArry[i] = "邮箱3";
+
+                            break;
+                        case 7:
+                            StrArry[i] = "QQ";
+                            break;
+                        case 8:
+                            StrArry[i] = "微博";
+                            break;
+                        case 9:
+                            break;
+                        case 10:
+                            break;
+                    }
+                }
+        }
         return StrArry;
     }
 
@@ -482,8 +520,8 @@ public Bitmap BytesToBitmap(byte[] b) {
         JSONObject jsonObj = new JSONObject(strResult);
         String[] StrArry = new String[10];
         JSONArray result = jsonObj.getJSONArray("result");
-        for(int i = 0;i<result.length();i++){
-            JSONObject json = (JSONObject) result.get(i);
+        for(int j = 0;j<result.length();j++){
+            JSONObject json = (JSONObject) result.get(j);
             StrArry[0] =json.getString("name");
             StrArry[1] =json.getString("personNumber");
             StrArry[2] =json.getString("workPhoneNumber");
@@ -494,6 +532,48 @@ public Bitmap BytesToBitmap(byte[] b) {
             StrArry[7] =json.getString("qqNumber");
             StrArry[8] =json.getString("weiboNumber");
             StrArry[9] =json.getString("account");
+            for (int i = 0;i<StrArry.length;i++){
+                if(StrArry[i].equals("")){
+                    switch (i){
+                        case 0:
+
+                            break;
+                        case 1:
+                            StrArry[i] = "手机1";
+
+                            break;
+                        case 2:
+                            StrArry[i] = "手机2";
+
+                            break;
+                        case 3:
+                            StrArry[i] = "手机3";
+
+                            break;
+                        case 4:
+                            StrArry[i] = "邮箱1";
+
+                            break;
+                        case 5:
+                            StrArry[i] = "邮箱2";
+                            break;
+                        case 6:
+                            StrArry[i] = "邮箱3";
+
+                            break;
+                        case 7:
+                            StrArry[i] = "QQ";
+                            break;
+                        case 8:
+                            StrArry[i] = "微博";
+                            break;
+                        case 9:
+                            break;
+                        case 10:
+                            break;
+                    }
+                }
+            }
             person = new Person(StrArry);
             personlist.add(person);
         }
@@ -740,9 +820,34 @@ public Bitmap BytesToBitmap(byte[] b) {
                 e.printStackTrace();
                 return "22";
             }
-            return jsonresult;
+            return jsonresult+"\r\n";
         }
 
+
+    public List<HashMap<String, Object>> parseJSONMark20(String result) {
+        List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+        try {
+            JSONObject object = new JSONObject(result);
+            if(object.getInt("error")==0){
+                JSONObject jsonresult = object.getJSONObject("result");
+                JSONArray Resultinfo = new JSONArray(jsonresult.getString("ResultINFO"));
+            for (int i = 0;i<Resultinfo.length();i++){
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                JSONObject jsonresult1 = (JSONObject) Resultinfo.get(i);
+                map.put("Phone",jsonresult1.getString("phone"));
+                map.put("Name",jsonresult1.getString("name"));
+                Log.e("aaaaa",map.toString());
+                list.add(i,map);
+            }
+                return list;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+
+    }
 
 }
 

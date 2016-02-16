@@ -148,6 +148,48 @@ public class PersonDao {
                     info[7] = tools.decryption(cursor.getString(8));
                     info[8] = tools.decryption(cursor.getString(9));
                     info[9] = tools.decryption(cursor.getString(10));
+                    for (int i = 0;i<info.length;i++){
+                        if(info[i].equals("")){
+                            switch (i){
+                                case 0:
+
+                                    break;
+                                case 1:
+                                    info[i] = "手机1";
+
+                                    break;
+                                case 2:
+                                    info[i] = "手机2";
+
+                                    break;
+                                case 3:
+                                    info[i] = "手机3";
+
+                                    break;
+                                case 4:
+                                    info[i] = "邮箱1";
+
+                                    break;
+                                case 5:
+                                    info[i] = "邮箱2";
+                                    break;
+                                case 6:
+                                    info[i] = "邮箱3";
+
+                                    break;
+                                case 7:
+                                    info[i] = "QQ";
+                                    break;
+                                case 8:
+                                    info[i] = "微博";
+                                    break;
+                                case 9:
+                                    break;
+                                case 10:
+                                    break;
+                            }
+                        }
+                    }
                     person = new Person(info);
                     personList.add(person);
                     Log.e("PersonDao",person.toString());
@@ -175,8 +217,8 @@ public class PersonDao {
             Cursor cursor = db.rawQuery("select _id, name, phone1,phone2,phone3,email1,email2,email3,qq,weibo,account from friendInfo where account = ?;", new String[]{account});
             String[] info = new  String[10];
             if(cursor != null && cursor.moveToFirst()) {
-                info[0] = cursor.getString(1);	// 取姓名
-                info[1] = tools.decryption(cursor.getString(2));	// 取年龄
+                info[0] = cursor.getString(1);    // 取姓名
+                info[1] = tools.decryption(cursor.getString(2));    // 取年龄
                 info[2] = tools.decryption(cursor.getString(3));
                 info[3] = tools.decryption(cursor.getString(4));
                 info[4] = tools.decryption(cursor.getString(5));
@@ -185,7 +227,48 @@ public class PersonDao {
                 info[7] = tools.decryption(cursor.getString(8));
                 info[8] = tools.decryption(cursor.getString(9));
                 info[9] = tools.decryption(cursor.getString(10));
+                for (int i = 0;i<info.length;i++){
+                    if(info[i].equals("")){
+                        switch (i){
+                            case 0:
 
+                                break;
+                            case 1:
+                                info[i] = "手机1";
+
+                                break;
+                            case 2:
+                                info[i] = "手机2";
+
+                                break;
+                            case 3:
+                                info[i] = "手机3";
+
+                                break;
+                            case 4:
+                                info[i] = "邮箱1";
+
+                                break;
+                            case 5:
+                                info[i] = "邮箱2";
+                                break;
+                            case 6:
+                                info[i] = "邮箱3";
+
+                                break;
+                            case 7:
+                                info[i] = "QQ";
+                                break;
+                            case 8:
+                                info[i] = "微博";
+                                break;
+                            case 9:
+                                break;
+                            case 10:
+                                break;
+                        }
+                    }
+                }
                 db.close();
                 return new Person(info);
             }

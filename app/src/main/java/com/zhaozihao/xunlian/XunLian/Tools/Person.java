@@ -4,18 +4,18 @@ package com.zhaozihao.xunlian.XunLian.Tools;
  * Created by zhaozihao on 2015/10/24.
  */
 public class Person {
-    private String name;
+    private String name= "姓名";
 
-    private String email1;
-    private String email2;
-    private String email3;
+    private String email1 = "邮箱1";
+    private String email2= "邮箱2";
+    private String email3= "邮箱3";
 
-    private String phone1;
-    private String phone2;
-    private String phone3;
+    private String phone1= "手机1";
+    private String phone2= "手机2";
+    private String phone3= "手机3";
 
-    private String qq;
-    private String weibo;
+    private String qq= "QQ";
+    private String weibo= "微博";
     private String account;
 
 
@@ -122,27 +122,6 @@ public class Person {
         this.weibo = weibo;
     }
 
-
-    public String[] toStringArray() {
-        String info[] = new String[9];
-
-        info[0] = this.name;
-
-
-
-        info[1] = this.phone1;
-        info[2] = this.phone2;
-        info[3] = this.phone3;
-        info[4] = this.email1;
-        info[5] = this.email2;
-        info[6] = this.email3;
-
-        info[7] = this.qq;
-
-        info[8] = this.weibo;
-        info[9] = this.account;
-        return info;
-    }
 }
 
 

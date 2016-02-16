@@ -84,7 +84,7 @@ public class PhonePersonAdapter extends BaseAdapter {
         final int  p = position;
         holder.Itemtext.setText((String) getItem(position).get("Name").toString().trim().substring(0,1).toUpperCase());
         holder.Itemtext.setBackgroundColor(Color.parseColor(colors[p % 6]));
-        holder.phone.setText((String) getItem(position).get("Phone"));  
+        holder.phone.setText((String) getItem(position).get("Phone"));
 
         holder.name.setText((String) getItem(position).get("Name"));
 

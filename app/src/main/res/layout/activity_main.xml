@@ -36,7 +36,6 @@
             android:visibility="gone" />
         <Button
             android:id="@+id/but1"
-            android:textColor="#ff0000"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"

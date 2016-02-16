@@ -235,6 +235,10 @@
         <activity
             android:name=".XunLian.Activity.Xunlian_Cloud"
             android:label="@string/title_activity_cloud"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".XunLian.Activity.Xunlian_showLocalPer"
+            android:label="@string/title_activity_xunlian_show_local_per"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -7,6 +7,7 @@
     <string name="title_activity_xunlian__account_safe">Xunlian_AccountSafe</string>
     <string name="title_activity_xunlian__forget_mibao">Xunlian_ForgetMibao</string>
     <string name="title_activity_cloud">Cloud</string>
+    <string name="title_activity_xunlian_show_local_per">Xunlian_showLocalPer</string>
 
 
 </resources>

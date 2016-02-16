@@ -3,6 +3,7 @@ package com.zhaozihao.xunlian.XunLian.Frangment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,7 +33,6 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 
 	ListView lv = null;
 	AppPersonListAdapter ma = null;
-	Tools tools = new Tools(getActivity());
 	String account = "";
 	SharedPreferences sp = null;
 	AlertDialog.Builder ad;
@@ -43,9 +43,9 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 	private SwipeRefreshLayout mSwipeLayout;
 	PersonDao dao;
 	View view;
-	AlertDialog.Builder builder;
-	Boolean isTwo = false;
 	MyToast myToast = null;
+	Tools tools = new Tools(getActivity());
+	ProgressDialog pd = null;
 	public UpdateListener updateListener;
 	private Handler mhandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -79,6 +79,9 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 					mSwipeLayout.setRefreshing(false);
 					break;
 				case 4:
+					if(pd!=null){
+						pd.dismiss();
+					}
 					ma.notifyDataSetChanged();
 					lv.setAdapter(ma);
 					break;
@@ -98,6 +101,10 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 						mSwipeLayout.setRefreshing(false);
 
 					}
+					break;
+				case 7:
+					pd = tools.creatDialog(getActivity(),msg.obj.toString(),"我在努力的加载中....");
+					pd.show();
 					break;
 			}
 		}
@@ -161,6 +168,7 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 
 		}
 
+
 	}
 
 	public String getAccount() {
@@ -180,6 +188,10 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 		dao = new PersonDao(getActivity(), account);
 		isSuccess = false;
 		if (a == 1) {
+			Message msg = Message.obtain();
+			msg.what = 7;
+			msg.obj = "我正在帮您查找数据...";
+			mhandler.sendMessage(msg);
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -207,6 +219,9 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 								mhandler.sendMessage(msg);
 							}
 						}, view);
+						Message msg = Message.obtain();
+						msg.what = 4;
+						mhandler.sendMessage(msg);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}

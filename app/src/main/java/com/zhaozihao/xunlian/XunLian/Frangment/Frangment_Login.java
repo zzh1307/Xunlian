@@ -104,7 +104,6 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
         show = (TextView) view.findViewById(R.id.show);
         Forget = (Button) view.findViewById(Login_BTN_Forget);
         Login.setOnClickListener(this);
-
         Forget.setOnClickListener(this);
         Password = (EditText) view.findViewById(R.id.Login_EDT_Password);
         Head = (ImageView) view.findViewById(R.id.Login_IMG_Head);

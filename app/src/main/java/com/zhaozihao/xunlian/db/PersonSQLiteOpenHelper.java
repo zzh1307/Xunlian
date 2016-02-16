@@ -34,7 +34,7 @@ public class PersonSQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         // 操作数据库
-        String sql = "create table friendInfo(_id integer primary key, name String, phone1 String,phone2 String,phone3 String,email1 String,email2 String,email3 String,qq String,weibo String,account String);";
+        String sql = "create table friendInfo(_id integer primary key, name String, phone1 String,phone2 String,phone3 String,email1 String,email2 String,email3 String,qq String,weibo String,account String,head String);";
         db.execSQL(sql);		// 创建person表
     }
 

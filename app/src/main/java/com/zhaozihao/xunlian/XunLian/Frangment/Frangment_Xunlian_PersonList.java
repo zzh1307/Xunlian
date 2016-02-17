@@ -136,12 +136,12 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 	}
 
 	private void init(View view) {
-
 		myToast = new MyToast();
 		mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.id_swipe_ly);
 		account = getAccount();
 		ad = new AlertDialog.Builder(getActivity());
 		ad.setTitle("友情提示");
+		ad.setCancelable(true);
 		ad.setMessage("\n您的讯连好友列表还没有添加\n点击添加按钮,添加小伙伴们吧....\n");
 		sp = getActivity().getSharedPreferences(account, Context.MODE_PRIVATE);
 		mSwipeLayout.setOnRefreshListener(this);

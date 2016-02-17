@@ -242,7 +242,7 @@ public class AppPersonListAdapter extends BaseAdapter {
         String[] phone1= new String[]{person.getPhone1(),person.getPhone2(),person.getPhone3()};
         for (int i = 0;i<3;i++){
 
-            if(!phone1[i].equals("")){
+            if(phone1[i].indexOf("手机") == -1){
                 strlist.add(phone1[i]);
             }
 

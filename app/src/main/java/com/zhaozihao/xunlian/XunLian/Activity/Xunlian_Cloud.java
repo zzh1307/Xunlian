@@ -1,8 +1,10 @@
 package com.zhaozihao.xunlian.XunLian.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -38,6 +40,7 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
     HashMap<String, Object> map1 = null;
     List<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
     Cursor c =null;
+    AlertDialog.Builder ad;
     Tools tools = new Tools(this);
     ProgressDialog pd = null;
     MyToast myToast = null;
@@ -46,6 +49,7 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
         public void handleMessage(Message msg) {
            switch (msg.what){
                case 0:
+
                     pd = tools.creatDialog(Xunlian_Cloud.this,"请稍等",msg.obj.toString()+"...");
                     pd.show();
                    break;
@@ -58,7 +62,14 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
                case 2:
                        myToast.showToast(Xunlian_Cloud.this, msg.obj.toString(), 0);
                    break;
-            }
+               case 3:
+                   ad.show();
+
+                   break;
+
+
+
+           }
 
 
         }
@@ -104,6 +115,7 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cloud);
         myToast = new MyToast();
+        ad = new AlertDialog.Builder(Xunlian_Cloud.this);
         initView();
     }
 
@@ -112,6 +124,70 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
         push.setOnClickListener(this);
         pull = (TextView) findViewById(R.id.cloud_pull);
         pull.setOnClickListener(this);
+        ad.setTitle("备份本地联系人");
+        ad.setMessage("\n本操作会将您的本地联系人数据备份到讯连服务器,我们不会将您的数据用来从事任何与讯连APP不相关的操作,请放心使用本功能");
+        ad.setPositiveButton("替我备份", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                is = false;
+                dialog.dismiss();
+                Message msg4 = Message.obtain();
+                msg4.what = 0;
+                msg4.obj = "正在努力推送数据";
+                handler.sendMessage(msg4);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(8000);
+                            if (!is) {
+                                Message msg = new Message();
+                                msg.what = 1;
+                                msg.obj = "网络超时,请检查您的网络连接";
+                                handler.sendMessage(msg);
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        queryContacts();
+                        String result = tools.sendString2ServersSocket(tools.Key2Json19("19", getAccount(), data));
+                        try {
+                            String[] strarry = tools.parseJSONMark12(result);
+                            if (strarry[0].equals("success")) {
+                                Message msg1 = new Message();
+                                is = true;
+                                msg1.what = 1;
+                                msg1.obj = strarry[1];
+                                handler.sendMessage(msg1);
+                            } else if (strarry[0].equals("failure")) {
+                                Message msg2 = new Message();
+                                msg2.what = 1;
+                                msg2.obj = "备份失败";
+                                is = true;
+                                handler.sendMessage(msg2);
+                            }
+                            pd.dismiss();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+
+            }
+        });
+        ad.setNegativeButton("下次再说吧", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
     }
 
     @Override
@@ -167,54 +243,9 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
                 }).start();
                 break;
             case R.id.cloud_push:
-                is = false;
                 Message msg4 = Message.obtain();
-                msg4.what = 0;
-                msg4.obj = "正在努力推送数据";
+                msg4.what = 3;
                 handler.sendMessage(msg4);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(8000);
-                            if(!is){
-                                Message msg = new Message();
-                                msg.what = 1;
-                                msg.obj = "网络超时,请检查您的网络连接";
-                                handler.sendMessage(msg);
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        queryContacts();
-                        String result = tools.sendString2ServersSocket(tools.Key2Json19("19",getAccount(), data));
-                        try {
-                            String[] strarry = tools.parseJSONMark12(result);
-                            if (strarry[0].equals("success")) {
-                                Message msg1 = new Message();
-                                is = true;
-                                msg1.what = 1;
-                                msg1.obj = strarry[1];
-                                handler.sendMessage(msg1);
-                            } else if (strarry[0].equals("failure")) {
-                                Message msg2 = new Message();
-                                msg2.what = 1;
-                                msg2.obj = "备份失败";
-                                is = true;
-                                handler.sendMessage(msg2);
-                            }
-                            pd.dismiss();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-
                 break;
         }
 

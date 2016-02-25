@@ -97,12 +97,16 @@ public class Xunlian_PersonInfo extends Activity{
         Intent intent = getIntent();
         type = intent.getStringExtra("type");
         String infostr = intent.getStringExtra("info");
-        String strupdate = infostr.substring(infostr.indexOf("@") + 1, infostr.indexOf("#"));
+        Log.e("infostr",infostr);
+        String strupdate = infostr.substring(infostr.indexOf("&") + 1, infostr.indexOf("#"));
+        Log.e("strupdate",strupdate);
         //在这里判断一下Intent的type,然后根据不同的type将传过来的string进行截取
         if(type.equals("update")){
             infostr = infostr.substring(infostr.indexOf("#")+1,infostr.length());
+            Log.e("update"+"infostr",infostr);
         }else{
-            infostr = infostr.substring(infostr.lastIndexOf("@") + 1, infostr.length());
+            infostr = infostr.substring(infostr.lastIndexOf("&") + 1, infostr.length());
+            Log.e("infostr",infostr);
         }
         array = infostr.split("#");
         if(type.equals("look")){

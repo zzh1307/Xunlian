@@ -19,10 +19,9 @@ android:orientation="vertical"
         android:layout_width="match_parent"
         android:padding="10dp"
         android:layout_height="wrap_content"
-        android:text="密保问题是为了方便您以后的密码找回,一定不要告诉其他人哦"
+        android:text="您可以预留与自身经历相关的问题和答案，当您忘记密码时,可以用此问题来重新设置您的密码."
         android:textSize="15dp"
         android:gravity="center"
-        android:textColor="#ff0000"
         android:layout_margin="10dp"
         />
 

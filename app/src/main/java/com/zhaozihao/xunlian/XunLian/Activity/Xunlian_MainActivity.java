@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengRegistrar;
+import com.umeng.update.UmengUpdateAgent;
 import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.XunLian.Adapter.AppPersonListAdapter;
 import com.zhaozihao.xunlian.XunLian.Frangment.Frangment_Add;
@@ -101,6 +102,8 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);  
         setContentView(R.layout.activity_main);
+        UmengUpdateAgent.update(this);
+        UmengUpdateAgent.setDeltaUpdate(true);
         sp = getSharedPreferences("isFirstGetUser", Context.MODE_PRIVATE);
         sp.edit().putBoolean("isFirstGetUser", true).commit();
         String device_token = UmengRegistrar.getRegistrationId(this);
@@ -185,10 +188,7 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
             break;
         case R.id.but2:
             isPressed = false;
-            if (frag2 == null)
-               {
-                 frag2 = new Frangment_Add();
-               }
+            frag2 = new Frangment_Add();
             title.setVisibility(View.VISIBLE);
             transaction.replace(R.id.id_content, frag2);
         	but1.setTextColor(-16777216);
@@ -248,8 +248,9 @@ public class Xunlian_MainActivity extends  Activity implements View.OnClickListe
                 Intent Intent = new Intent();
                 String mark = "@";
                 for (int i = 0; i < perlist.get(which).size(); i++) {
-                    mark += perlist.get(which).get(i).getKey() + "@";
+                    mark = perlist.get(which).get(i).getKey() + mark;
                 }
+                Log.e("mark",mark);
                 Intent.setClass(Xunlian_MainActivity.this, Xunlian_PersonInfo.class);
                 Intent.putExtra("type", "update");
                 Intent.putExtra("info", mark + "#" + aa.toString());

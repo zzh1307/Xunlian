@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_PersonInfo;
@@ -50,8 +51,9 @@ public class Frangment_Add extends Fragment implements View.OnClickListener{
 			}else if(msg.what==3){
 				if(pd!=null){
 					pd.dismiss();
-					myToast.showToast(getActivity(), msg.obj.toString(), 0);
+
 				}
+				myToast.showToast(getActivity(), msg.obj.toString(), 0);
 			}else if (msg.what == 2) {
 				if(pd!=null){
 					pd.dismiss();
@@ -92,15 +94,82 @@ public class Frangment_Add extends Fragment implements View.OnClickListener{
 		String str = sp.getString("account","");
 		return  str;
 	}
+	void getInfo(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(3000);
+					if(pd!=null){
+						Message msg = Message.obtain();
+						msg.what = 3;
+						msg.obj = "网络连接超时,查询失败";
+						handler.sendMessage(msg);
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					Message msg = Message.obtain();
+					msg.obj = "正在查找信息";
+					handler.sendMessage(msg);
+					String result = tools.sendString2ServersSocket(tools.Key2Json("18", "account",friendaccount));
+					JSONObject jsonObj = new JSONObject(result);
+					int error = jsonObj.getInt("error");
+					if(error==0){
+						info = tools.parseJSONMark9(result);
+						String infostr = "";
+						for(int i = 0;i<info.length;i++) {
+							infostr += info[i]+"#";
+						}
+						Intent intent = new Intent();
+						intent.putExtra("info",infostr);
+						intent.putExtra("result", friendaccount);
+						intent.putExtra("type", "add");
+						intent.setClass(getActivity(), Xunlian_PersonInfo.class);
+						startActivity(intent);
+						pd.dismiss();
+						pd = null;
+					}else{
+						info = tools.parseJSONMark12(result);
+						Message msg1 = new Message();
+						msg1.what = 4;
+						msg1.obj = info[1];
+						handler.sendMessage(msg1);
+						pd.dismiss();
+						pd = null;
+					}
+				}
+				catch ( Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+
+
+		}).start();
+	}
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
     	if(resultCode != -1){
     		return;
     	}else if(requestCode == 0||requestCode==300){
 			friendaccount = data.getStringExtra("result");
+		}
+		if(friendaccount.equals(account)){
+			myToast.showToast(getActivity(), "不可以添加自己哦", Toast.LENGTH_SHORT);
+		}else{
+
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
+					//todo 修复扫描二维码添加好友的BUG
 
 					try {
 						String result = tools.sendString2ServersSocket(tools.Key2Json("9", new String[]{"account", "friendaccount"}, new String[]{account, friendaccount}));
@@ -108,9 +177,20 @@ public class Frangment_Add extends Fragment implements View.OnClickListener{
 						jsonObj = new JSONObject(result);
 						JSONObject jresult = jsonObj.getJSONObject("result");
 						question = jresult.getString("ResultINFO");
-						Message msg = new Message();
-						msg.what = 5;
-						handler.sendMessage(msg);
+						int error = jsonObj.getInt("error");
+						if(error == 3){
+							getInfo();
+						}else if(error == 4){
+							Message msg = Message.obtain();
+							msg.what = 5;
+							handler.sendMessage(msg);
+						}else if(error == 2){
+							Message msg = Message.obtain();
+							msg.what = 3;
+							msg.obj = question;
+							handler.sendMessage(msg);
+						}
+
 
 					} catch (JSONException e) {
 						e.printStackTrace();

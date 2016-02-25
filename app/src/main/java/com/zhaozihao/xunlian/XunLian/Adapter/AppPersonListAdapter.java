@@ -188,7 +188,7 @@ public class AppPersonListAdapter extends BaseAdapter {
                 Intent Intent = new Intent();
                 Intent.setClass(context, Xunlian_PersonInfo.class);
                 Intent.putExtra("type", "look");
-                Intent.putExtra("info", "@"+info);
+                Intent.putExtra("info", info);
                 context.startActivity(Intent);
             }
         });

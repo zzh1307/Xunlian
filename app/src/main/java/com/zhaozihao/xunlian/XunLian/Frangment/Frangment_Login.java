@@ -24,8 +24,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umeng.message.PushAgent;
-import com.umeng.message.UmengRegistrar;
-import com.umeng.update.UmengUpdateAgent;
 import com.zhaozihao.xunlian.R;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_ForgetPassword;
 import com.zhaozihao.xunlian.XunLian.Activity.Xunlian_MainActivity;
@@ -85,11 +83,8 @@ public class Frangment_Login extends Fragment implements View.OnClickListener{
     	View view = inflater.inflate(R.layout.login, container, false);
         init(view);
         appManger = AppManger.getAppManger();
-        UmengUpdateAgent.update(getActivity());
         PushAgent mPushAgent = PushAgent.getInstance(getActivity());
         mPushAgent.enable();
-        String device_token = UmengRegistrar.getRegistrationId(getActivity());
-        Log.e("device_token", device_token);
         return   view;
     }
     public String getAccount() {

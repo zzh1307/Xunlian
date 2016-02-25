@@ -582,7 +582,7 @@ public String[] getEditString(){
 		switch (arg0.getId()) {
 
 		case R.id.newinfo_img_photo:
-			showDialog();break;
+			//showDialog();break;
 		case R.id.newinfo_img_phoneP:
 			if(phone1.getVisibility() == View.VISIBLE){
 				phone1.setVisibility(View.GONE);

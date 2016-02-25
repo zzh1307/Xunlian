@@ -3,6 +3,7 @@ package com.zhaozihao.xunlian.XunLian.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -76,36 +76,23 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
 
     };
     public void queryContacts() {
-        Cursor cursor = getContentResolver().query(uri, new String[]{"_id"}, null,null, ContactsContract.Contacts.DISPLAY_NAME);
-        if (cursor!=null&&cursor.getCount()>0){
-            while(cursor.moveToNext()){
-                int id = cursor.getInt(0);
-                String selection = "raw_contact_id = ?";
-                String[] selectionArgs = {String.valueOf(id)};
-                c = getContentResolver().query(dataUri,new String[]{"data1","mimetype"}, selection,selectionArgs,null);
-                if (c!=null&&c.getCount()>0){
-                    map = new HashMap<String, Object>();
-                    while (c.moveToNext()){
-                        String mimetype = c.getString(1);
-                        String data1 = c.getString(0);
-                        if("vnd.android.cursor.item/name".equals(mimetype)){
-                            Log.e("data1", data1);
-                            map.put("Name", data1);
-                            map1 = map;
-                            continue;
-                        }else if("vnd.android.cursor.item/phone_v2".equals(mimetype)){
-                            if(!data.equals("")){
-                                map.put("Phone", data1);
-                                Log.e("data1--", data1);
-                                data.add(map);
-                            }else{
-                                continue;
-                            }
-                        }
-                    }
-                }
+        ContentResolver cr = getContentResolver();
+        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.SORT_KEY_ALTERNATIVE);
+        while(cursor.moveToNext()) {
+            map = new HashMap<String, Object>();
+            int nameFieldColumnIndex = cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME);
+            String contact = cursor.getString(nameFieldColumnIndex);
+            map.put("Name", contact);
+            String ContactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+            Cursor phone = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ContactId, null, null);
+            if(phone.moveToNext())
+            {
+                String Number = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                map.put("Phone", Number);
+                data.add(map);
             }
         }
+        cursor.close();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,15 +217,12 @@ public class Xunlian_Cloud extends Activity implements View.OnClickListener {
                             is = true;
                             Message msg = new Message();
                             msg.what = 2;
-                            msg.obj = "获取云端数据失败";
+                            msg.obj = "您还没有备份过数据";
                             handler.sendMessage(msg);
                         }
                         is = true;
                         pd.dismiss();
-                        Message msg = new Message();
-                        msg.what = 2;
-                        msg.obj = "result:"+result;
-                        handler.sendMessage(msg);
+
                     }
                 }).start();
                 break;

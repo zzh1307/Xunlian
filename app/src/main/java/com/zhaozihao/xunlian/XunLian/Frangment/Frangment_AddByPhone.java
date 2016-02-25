@@ -86,9 +86,9 @@ public class Frangment_AddByPhone extends Fragment {
 				if (friendaccount.equals("")||friendaccount.length()<8||friendaccount.length()>16) {
 					myToast.showToast(getActivity(), "输入的账号格式不对...", Toast.LENGTH_SHORT);
 				}
-//				else if(friendaccount.equals(account)){
-//					myToast.showToast(getActivity(), "不可以添加自己哦", Toast.LENGTH_SHORT);
-//				}
+				else if(friendaccount.equals(account)){
+					myToast.showToast(getActivity(), "不可以添加自己哦", Toast.LENGTH_SHORT);
+				}
 				else{
 					/*
 					 *这里面添加请求朋友所有信息的

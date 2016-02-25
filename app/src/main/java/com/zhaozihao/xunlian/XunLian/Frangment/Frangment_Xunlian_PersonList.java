@@ -149,9 +149,10 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 		lv = (ListView) view.findViewById(R.id.Local_PersonList);
 		dao = new PersonDao(getActivity(), account);
 		personList = dao.queryAll();
-		if (is1||personList.equals(null) || personList.size() == 0 || personList.isEmpty()) {
-			Refresh(1);
-		} else {
+		Refresh(1);
+//		if (is1||personList.equals(null) || personList.size() == 0 || personList.isEmpty()) {
+//			Refresh(1);
+//		} else {
 			isSuccess = true;
 			ma = new AppPersonListAdapter(getActivity(), personList, account, new AppPersonListAdapter.OnDeleteResult() {
 				@Override
@@ -166,7 +167,8 @@ public class Frangment_Xunlian_PersonList extends Fragment implements SwipeRefre
 			msg.what = 4;
 			mhandler.sendMessage(msg);
 
-		}
+//		}
+
 
 
 	}

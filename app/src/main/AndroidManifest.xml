@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhaozihao.xunlian"
-    android:versionCode="5"
-    android:versionName="1.0.0.5">
-
+    android:versionCode="10"
+    android:versionName="1.1.0.4">
+<!--这个版本修复了某些机型无法获取本地联系人的BUG,还有添加好友后,双方列表显示不一致的问题-->
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -26,10 +25,8 @@
     <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    ;
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -42,9 +39,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- SD卡 读写权限 -->
@@ -68,10 +63,10 @@
             android:value="@string/app_key" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="56406c4f67e58e945b000daa" />
+            android:value="@string/umeng_appkey" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Test" />
+            android:value="UMeng" />
 
         <!-- 监听通知点击或者忽略处理的广播 -->
         <receiver

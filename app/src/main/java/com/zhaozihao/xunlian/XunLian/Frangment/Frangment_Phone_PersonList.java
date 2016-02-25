@@ -1,11 +1,11 @@
 package com.zhaozihao.xunlian.XunLian.Frangment;
 
 import android.app.Fragment;
+import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,39 +38,28 @@ public class Frangment_Phone_PersonList extends Fragment {
         return   view;
     }  
     public void queryContacts() {
-        Cursor cursor = getActivity().getContentResolver().query(uri, new String[]{"_id"}, null,null, ContactsContract.Contacts.DISPLAY_NAME);
-                if (cursor!=null&&cursor.getCount()>0){
-                    while(cursor.moveToNext()){
-                        int id = cursor.getInt(0);
-                        String selection = "raw_contact_id = ?";
-                        String[] selectionArgs = {String.valueOf(id)};
-                        c = getActivity().getContentResolver().query(dataUri,new String[]{"data1","mimetype"}, selection,selectionArgs,null);
-                        if (c!=null&&c.getCount()>0){
-                            map = new HashMap<String, Object>();
-                            while (c.moveToNext()){
-                                String mimetype = c.getString(1);
-                                String data1 = c.getString(0);
-                                if("vnd.android.cursor.item/name".equals(mimetype)){
-                                    Log.e("data1", data1);
-                                    map.put("Name", data1);
-                                    map1 = map;
-                                    continue;
-                                }else if("vnd.android.cursor.item/phone_v2".equals(mimetype)){
-                                    if(!data.equals("")){
-                                        map.put("Phone", data1);
-                                        Log.e("data1--", data1);
-                                        data.add(map);
-                                    }else{
-                                        continue;
-                                    }
-                                }
-                            }
-                        }
+        ContentResolver cr = getActivity().getContentResolver();
+        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.SORT_KEY_ALTERNATIVE);
+        while(cursor.moveToNext()) {
+            map = new HashMap<String, Object>();
+            int nameFieldColumnIndex = cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME);
+            String contact = cursor.getString(nameFieldColumnIndex);
+            map.put("Name", contact);
+            String ContactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+            Cursor phone = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + ContactId, null, null);
+            if(phone.moveToNext())
+            {
+                String Number = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                map.put("Phone", Number);
+                data.add(map);
+            }
+        }
+        cursor.close();
                 ma = new PhonePersonAdapter(getActivity(), data,1);
     	    	phone_person_list.setAdapter(ma);
 			}
-            }
-        }
+
+
     }
 
     

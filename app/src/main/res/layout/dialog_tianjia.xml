@@ -10,10 +10,9 @@
         android:layout_width="match_parent"
         android:padding="10dp"
         android:layout_height="wrap_content"
-        android:text="添加问题是为了验证此人是否是您的好友,如果您希望您的好友添加你,请告诉他您设置的密码"
+        android:text="别人添加您为好友时需要回答这个问题,所以别让您的小伙伴们猜的太久哦."
         android:textSize="15dp"
         android:gravity="center"
-        android:textColor="#ff0000"
         android:layout_margin="10dp"
         />
     <EditText
@@ -23,7 +22,7 @@
         android:id="@+id/tianjia_edt_wenti"
         android:gravity="center"
         android:layout_gravity="center"
-        android:hint="请输入添加问题"
+        android:hint="请输入添加问题(例如:我的名字?)"
         android:inputType="text"
         />
     <EditText
